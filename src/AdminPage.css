@@ -1,0 +1,264 @@
+/* Main container to display three vertical columns */
+.admin-page {
+    display: flex;
+    height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  /* First column: Section list */
+  .admin-section {
+    width: 20%;
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 25px;
+  }
+  
+  .admin-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .admin-section button {
+    width: 100%;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .admin-section button:hover {
+    background-color: #1abc9c;
+  }
+
+  .content-display-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content-item {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .content-image {
+    width: 100%;
+    max-width: 400px; /* Set max width for the image */
+    height: auto;
+    object-fit: cover; /* Ensure the image fits inside the container */
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .content-item p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .subsections {
+    padding-left: 10px;
+  }
+  
+  .subsection-button {
+    background-color: #16a085;
+    color: white;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .subsection-button:hover {
+    background-color: #1abc9c;
+  }
+  
+  /* Second column: Content display */
+  .admin-content {
+    width: 60%;
+    padding-right: 30px;
+    padding-left: 30px;
+    background-color: #ffffff;
+    border-right: 1px solid #ccc;
+    margin-top:15px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  .admin-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  /* Third column: History */
+  .admin-history {
+    width: 20%;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 45px;
+  }
+  
+  .admin-history h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .admin-history ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .admin-history li {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  .section-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .section-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Triangular arrow */
+  .arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid black;
+    transition: transform 0.2s;
+  }
+  
+  .arrow.open {
+    transform: rotate(180deg); /* Rotate when dropdown is open */
+  }
+  .admin-page h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  button {
+    background-color: #565656;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #444;
+  }
+  
+  /* Button alignment in a row */
+  div button {
+    display: inline-block;
+  }
+  
+  /* Button section styling */
+  div {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Created by and date text style */
+  div div {
+    font-size: 18px;
+    color: #000000;
+    margin-top: 10px;
+  }
+  .edit-publish{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+  }
+  .name-date{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    margin-top: 0px;
+}
+
+/* Example of highlight style */
+.highlighted {
+    border: 10px solid rgba(255, 0, 0, 0.558);
+    transition: border 0.3s ease;
+  }
+
+  .replace-button {
+    background-color: #565656;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 350px;
+  }
+  
+  .replace-button:hover {
+    background-color: #868585; /* Darker blue on hover */
+  }
+  
+  .replace-button:active {
+    background-color: #565656; /* Even darker blue when clicked */
+  }
+
+  .button-containers{
+    text-align: center;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    gap: 280px;
+    margin-bottom: -20px;
+}
+  /* General Layout and Responsiveness */
+  @media (max-width: 1200px) {
+    .admin-page {
+      flex-direction: column;
+    }
+  
+    .admin-section, .admin-content, .admin-history {
+      width: 100%;
+    }
+  }
+  

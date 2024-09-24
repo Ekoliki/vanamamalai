@@ -1,0 +1,74 @@
+.loginpage{
+    background-color: black;
+    color: black;
+    display: flex;
+    
+}/* Admin Login Page Styling */
+.logincontainer {
+    background-color: #1c1c1e; /* Dark grey background */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 550px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logincontainer h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; /* Clean modern font */
+    font-size: 26px;
+    color: #f0f0f0; /* Light grey font for contrast */
+    margin-bottom: 20px;
+  }
+  
+  .logincontainer input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px; /* Slightly sharper edges */
+    border: 1px solid #333; /* Darker grey for border */
+    background-color: #2c2c2e; /* Slightly lighter dark grey */
+    color: #ffffff; /* White text for input fields */
+    font-size: 16px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .logincontainer input:focus {
+    border-color: #7f7fff; /* Subtle blue glow for focus */
+    background-color: #3a3a3c; /* Slight color change for focus */
+    outline: none;
+  }
+  
+  .logincontainer button {
+    background-color: #000000; /* AI-inspired soft blue */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px; /* Consistent sharpness */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+  }
+  
+  .logincontainer button:hover {
+    background-color: #ffffff; /* Slightly darker on hover */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Subtle hover shadow */
+    color: black;
+  }
+  
+  .logincontainer button:active {
+    background-color: #5a5aff; /* Darker when pressed */
+    box-shadow: none; /* No shadow when active */
+  }
+  
+  /* Add a subtle shadow to input fields on hover */
+  .logincontainer input:hover {
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1); 
+  }

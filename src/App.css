@@ -1,0 +1,1401 @@
+/* Reset and base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  padding-top: 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+p4 {
+  font-size: 18px;
+  display: flex;
+padding: 5px;
+size: bold;
+border-bottom: 1px solid #ccc;
+margin-bottom: 5px;
+}
+.overlay-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.overlay-content h2 {
+  margin-bottom: 10px;
+}
+
+.overlay-content p {
+  margin-bottom: 20px;
+}
+
+.overlay-content button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.logo-container {
+  width: 100%;
+  padding: 0px 0px;
+  background-color: #ffffff;
+  position: fixed;    /* Fix the header to the top */
+  top: 0;             /* Align it to the top of the page */
+  left: 0;            /* Ensure it spans the full width */
+  right: 0;           /* Ensures it adjusts with screen width */
+  z-index: 1000;      /* Keep it on top of other elements */
+  margin: auto;
+}
+
+/* Flexbox to arrange text, logo, and profile icon */
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* This ensures items are spread out */
+  flex-wrap: wrap;  /* Allows wrapping on smaller screens */
+}
+
+/* Text alignment and styling */
+.Header-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff0000;
+  margin-left: 10px;
+}
+
+/* Center the logo */
+.logo {
+  width: 100px;  /* Adjust size of the logo */
+  height: auto;
+  max-width: 100%;  /* Ensure it scales on smaller screens */
+  margin-left: 450px;
+  margin-right: auto;
+}
+
+/* Profile and Admin controls aligned to the right */
+.logologo {
+  display: flex;
+  align-items: center;
+}
+
+.login-icon {
+  margin-left: 20px;
+}
+
+.admin-controls {
+  margin-left: 10px;
+}
+
+header {
+  background-color: #fff;
+  padding: 0px 0px;
+  width: 100%;
+  position: sticky; /* Keeps the header fixed after scrolling past */
+  top: 37px; /* Adjust this to be below the logo-container height */
+  z-index: 1000; /* Ensures it stays on top */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  
+}
+
+.vanamamalai-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1100px;
+  position: sticky;
+}
+
+.navbar-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-list li {
+  margin: 0 15px;
+}
+
+.navbar-list li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.navbar-list li a:hover {
+  color: #007bff;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 35px; /* To offset the fixed header height */
+}
+
+/* Top Section */
+.top-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.highlight-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 0px;
+  text-align: left;
+  max-width: 100%;
+  height: 510px;
+}
+.highlight-link {
+  text-decoration: none;
+  color: #000000;
+  margin-bottom: -20px;
+  
+}
+
+.highlight-container{
+  max-width: 500px;
+  height: auto;
+  margin: 10px;
+  
+}
+.highlight-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 0;
+  align-items: flex-start;
+  border: 1px solid #ccc;
+  width: 500px;
+  padding: 10px;
+}
+
+.news-section {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.news-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Image on the left */
+.news-image-left {
+  width: 150px; /* Adjust width as needed */
+  height: 150px;
+  margin-right: 20px;
+  object-fit: cover;
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+/* Text content on the right */
+.news-text-content {
+  flex: 1;
+ 
+}
+
+/* Heading and text styling */
+.news-text-content h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.news-text-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.right-column {
+  flex: 1 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0px;
+  max-width: 100%;
+  height:auto;
+}
+
+.youtube iframe {
+  max-width: 100%;
+  height: 210px;
+  margin-bottom: 0px;
+}
+.image-container{
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+align-items: center;
+padding: 10px;
+}
+
+.announcements {
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 5px;
+  max-width: 100%;
+  padding: 0px;
+  height: 260px;
+}
+h3 {
+  display: block;
+  font-size: 18px;
+  color: #000000;
+  text-align: center;
+  margin-block-start: 0.2em;
+  margin-block-end: 0.2em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+  border-bottom: 1px solid #ddd;
+}
+
+.announcement-scroller {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 230px; /* Set a maximum height for vertical scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+  margin: 0 auto;
+
+}
+.announcement-link {
+  text-decoration: auto;
+  color: black;
+}
+.announcement-items {
+  display: flex;
+  flex-direction: column; /* Change the direction to column for vertical layout */
+  margin-left: 0; /* Remove left margin */
+}
+
+
+.announcement1-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+    padding: 0px;
+}
+
+.announcement1-item img {
+  max-width: 135px;
+  height: 125px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.announcement2-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.announcement2-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+    padding: 0px;
+}
+
+.announcement2-item img {
+  max-width: 135px;
+  height: 125px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.announcement3-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.announcement3-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+    padding: 0px;
+}
+
+.announcement3-item img {
+  max-width: 135px;
+  height: 125px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.announcement4-item img {
+  max-width: 135px;
+  height: 125px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.announcement4-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.announcement4-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+    padding: 0px;
+}
+
+
+/* Bottom Section */
+.bottom-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.jeeyars-travel {
+  
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  flex: 2;
+}
+h2 {
+  display: flex;
+  font-size: 20px;
+  margin: 5px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+  color: #000000;
+  border-bottom: 1px solid #ddd;
+}
+
+.itinerary-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.year-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+
+  padding: 10px;
+}
+.year1-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;  
+  border-bottom: 1px solid #ddd;
+
+  padding: 10px;
+}
+.year2-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+
+  padding: 10px;
+}
+
+.year-section img {
+  width: 290px;
+  height: 150px;
+  margin-right: 0px;
+}
+.year1-section img {
+  width: 290px;
+  height: 150px;
+  margin-right: 0px;
+}
+.year2-section img {
+  width: 290px;
+  height: 150px;
+  margin-right: 0px;
+}
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.video-item {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.video-item iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.video-item img {
+  max-width: 100%;
+  height: auto;
+  margin-right: 10px;
+}
+.containers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Space between containers */
+}
+
+.content-wrapper {
+  display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.image-left {
+  width: 250px; /* Adjust image width */
+  height: auto;
+  margin-right: 0px;
+}
+
+.text-content {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.text-content h2 {
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.text-content p {
+  margin: 0;
+}
+
+.event-calendar {
+  /* height: 935px; */
+  flex: 1;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.scrollable {
+  max-height: 740px;
+  overflow-y: auto;
+}
+
+.event-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: solid 1px #ccc;
+  padding: 10px;
+}
+
+.event-item img {
+  height: 200px;
+}
+.event-item2 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: solid 1px #ccc;
+  padding: 10px;
+}
+
+.event-item2 img {
+  height: 200px;
+}
+.event-item3 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: solid 1px #ccc;
+  padding: 10px;
+}
+
+.event-item3 img {
+  height: 200px;
+}
+.event-item4 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: solid 1px #ccc;
+  padding: 10px;
+}
+
+.event-item4 img {
+  height: 200px;
+}
+
+/* Vanamamalai Temple Section */
+.vanamamalai-temple-section {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.vanamamalai-temple-section h1 {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.banner img {
+  width: 100%;
+  max-height: 50vh;
+  object-fit: cover;
+}
+
+.vanamamalai-temple-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center; /* Center the items within the container */
+}
+
+.temple-item ,.temple-item2 ,.temple-item3, .temple-item4, .temple-item5, .temple-item6 {
+  flex: 1 1 calc(33.333% - 20px);
+  display: flex;
+  flex-direction: row; /* Arrange items side by side */
+  background-color: #ffffff;
+  padding: 0px;
+  border: 1px solid #ddd;
+  align-items: center; /* Vertically center items */
+}
+
+.temple-item img,
+.temple-item2 img,
+.temple-item3 img,
+.temple-item4 img,
+.temple-item5 img,
+.temple-item6 img {
+  width: 260px; /* Adjust width as needed */
+  height: 150px;
+  padding: 10px;
+}
+
+
+.temple-item{
+  display: flex;
+  background-color: #ffffff;
+}
+.temple-item2{
+  display: flex;
+  background-color: #ffffff;
+}
+.temple-item3{
+  display: flex;
+  background-color: #ffffff;
+}
+.temple-item4{
+  display: flex;
+  background-color: #ffffff;
+}
+.temple-item5{
+  display: flex;
+  background-color: #ffffff;
+}
+.temple-item6{
+  display: flex;
+  background-color: #ffffff;
+}
+
+.event-map{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+.event-info {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Patashala Section */
+.patashala-section .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.patashala-section .header h1 {
+  margin: 0;
+  color: #000000;
+  font-size: 24px;
+}
+
+.patashala-section .header nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.patashala-section .header nav li {
+  color: #000000;
+  margin-left: 20px;
+}
+
+.patashala-section .header nav a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.patashala-section .header nav a:hover {
+  text-decoration: underline;
+}
+
+.about-enquiry-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.about,
+.enquiry {
+  flex: 1;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.about img,
+.enquiry img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.enquiry form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.enquiry input,
+.enquiry textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.enquiry button {
+  padding: 10px;
+  background-color: #ccddff;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+}
+
+.enquiry button:hover {
+  background-color: #b6ffb7;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.course,
+.admission,
+.event {
+  flex: 1;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.course img,.admission img,.event img {
+  width: 450px;
+  height: 200px;
+}
+
+/* Gallery Section */
+.gallerysection {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.galleryheading {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.gallery{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+}
+.gallery-photos1,.gallery-photos2,.gallery-photos3,.gallery-photos4,.gallery-photos5,.gallery-photos6,.gallery-photos7,.gallery-photos8{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background-color: #ffffff;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.gallery-photos1 img,.gallery-photos2 img,.gallery-photos3 img,.gallery-photos4 img,.gallery-photos5 img,.gallery-photos6 img,.gallery-photos7 img,.gallery-photos8 img{
+  width: 250px;
+  height: 190px;
+
+}
+
+.gallery-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.gallery-column {
+  flex: 1 1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-item {
+  flex: 0 0 auto; /* Allow items to expand based on content */
+  min-width: 300px; /* Minimum width for each gallery item */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.gallery-item1, .gallery-item2, .gallery-item3, .gallery-item4, .gallery-item5,.gallery-item6{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: baseline;
+}
+
+.gallery-item1 img, .gallery-item2 img, .gallery-item3 img, .gallery-item4 img, .gallery-item5 img,.gallery-item6 img{
+  width: 330px;
+  height: 185px;
+}
+
+.patashalaevents-map {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+
+}
+.map-column {
+  flex: 0 0 300; /* Width of the map column */
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.map-column iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+.login-icon {
+  
+  color: #000;
+  text-decoration: none;
+}
+.admin-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+}
+
+.admin-controls button {
+  margin-left: 10px;
+    padding: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 60px;
+
+}
+.logologo{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+}
+
+/* Edit Button Styles */
+.edit-button {
+  background-color: #007bff; /* Primary blue color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Popup Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Popup Modal Container */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%; /* Responsive for smaller screens */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Popup Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Close Button */
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.modal-close-button:hover {
+  color: #000;
+}
+
+/* Input and Textarea Styles */
+.modal-input,
+.modal-textarea {
+  width: calc(100% - 20px); /* Consistent padding space */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  resize: vertical; /* Allow vertical resizing of textarea */
+}
+
+.modal-textarea {
+  min-height: 80px;
+}
+
+/* Save Button in Modal */
+.modal-save-button {
+  background-color: #28a745; /* Green color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-save-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Cancel Button in Modal */
+.modal-cancel-button {
+  background-color: #dc3545; /* Red color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-cancel-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Flex Container for Buttons */
+.modal-button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   
+  .vanamamalai-container {
+    flex-direction: column;
+  }
+  .Header-text {
+    font-size: 18px;
+  }
+  .logo {
+    width: 80px;
+  }
+  .login-icon, .admin-controls {
+    margin-left: 5px;
+  }
+  
+  .navbar {
+    justify-content: flex-start;
+  }
+
+  .navbar-list {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .navbar-list li {
+    margin: 0px 0px;
+  }
+
+  .navbar-list li a {
+    font-size: 16px;
+  }
+  .news-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .news-image-left {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px; /* Adjust for mobile view */
+  }
+
+  .news-text-content {
+    text-align: center;
+    margin-left: 5px;
+  }
+
+  .top-section {
+    flex-direction: column;
+  }
+
+  .highlight-text{
+    flex-direction: column;
+    width: 100%;
+  }
+  .highlight-text img {
+    width: 100%;
+  }
+
+  .right-column {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .youtube {
+    width: 100%;
+  }
+
+  .ann {
+    width: 100%;
+
+  }
+  .announcements {
+    height: auto;
+  }
+  
+  .announcement-scroller {
+    display: flex;
+    flex-direction: row; /* Align items horizontally */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .announcement-items {
+    display: flex;
+    flex-direction: row; /* Ensure items are aligned horizontally */
+  }
+  
+  .announcement1-item,
+  .announcement2-item,
+  .announcement3-item,
+  .announcement4-item {
+    flex: 0 0 auto; /* Prevent items from shrinking */
+    width: 100%; /* Set a fixed width for each item */
+    background-color: #ffffff;
+    margin-right: 10px;
+  }
+  
+
+  .scroll-button {
+    padding: 5px;
+    max-width: 20px;
+  }
+
+  .bottom-section {
+    flex-direction: column;
+  }
+
+  .itinerary-columns {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 5px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    height: 310px;
+  }
+  
+  .itinerary-columns::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for a cleaner look */
+  }
+  
+  .itinerary-column {
+    flex: 0 0 auto; /* Ensure columns don't shrink and stay at their natural width */
+  }
+  
+
+  .vanamamalai-temple-content {
+    flex-direction: column;
+  }
+
+
+  .about-enquiry-container {
+    flex-direction: column;
+  }
+
+  .gallery-column {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+  }
+  
+  .patashalaevents-map {
+    overflow-x: auto;
+}
+
+.event-map {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+  .map-column {
+    flex: 0 0 100%;
+  }
+
+  .map-column iframe {
+    height: 300px;
+  }
+ 
+    .videos {
+      display: flex;
+      flex-wrap: nowrap; /* Prevent wrapping, making it horizontal */
+      overflow-x: auto; /* Enable horizontal scrolling */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+  
+    .video-item {
+      flex: 0 0 auto; /* Ensure items retain their width */
+      width: 300px;
+    }
+  
+    .videos::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for a cleaner look */
+    }
+    
+      .event-calendar {
+        max-height: 740px; /* Adjust height for mobile */
+        overflow-y: auto;  /* Enable vertical scrolling */
+      }
+      .event-item img,
+.event-item2 img,
+.event-item3 img,
+.event-item4 img {
+  height: 200px;
+}
+
+.vanamamalai-temple-content {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+}
+  
+}
+
+@media (max-width: 480px) {
+  .news-section {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 10px;
+    scroll-snap-type: x mandatory; /* Snap scrolling effect */
+    width: 100%;
+  }
+  .news-item {
+    display: flex;
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    margin-right: 0px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+  .news-item {
+    flex: 0 0 80%; /* Adjust the width for mobile */
+    scroll-snap-align: start;
+    margin-right: 0px;
+  }
+
+  .news-image-left {
+    width: 100px;
+    height: auto;
+  }
+
+  .news-text-content h2 {
+    font-size: 16px;
+  }
+
+  .news-text-content p {
+    font-size: 14px;
+  }
+
+  .highlight-section,
+  .youtube iframe,
+  .youtube,
+  
+  .jeeyars-travel,
+  .video-item img,
+  .about img,
+  .enquiry img,
+  .gallery-item img,
+  .map-column iframe,
+  .event-calendar,
+  .menu-toggle,
+  .header-content {
+    width: 100%;
+    height: auto;
+  }
+
+  .course img,
+  .event img,
+  .admission img{
+    width: 100%;
+    height: 100px;
+  }
+  
+  header {
+    top: 26px; /* Further adjustment for smaller screens */
+  }
+
+  .navbar-list li a {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .Header-text {
+    font-size: 14px;  /* Further reduce font size for very small screens */
+  }
+
+  .logo {
+    width: 85px;  /* Reduce logo size even more for smaller screens */
+    margin-left: 20px;
+   }
+
+  .login-icon {
+    margin-left: 0px;
+    margin-bottom: 5px;
+  }
+
+  .header-flex {
+    flex-direction: row;  /* Make sure everything is still in a row */
+    justify-content: space-between;
+  }
+
+   .news-image-left {
+    max-width: 100%; /* Image takes full width on very small screens */
+  }
+  
+ 
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    margin-right: 0px;
+}
+.patashala-section .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  padding: 5px;
+  margin-top: 0px;
+}
+.itinerary-columns {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 10px; /* Spacing between items */
+  scroll-snap-type: x mandatory; /* Optional smooth scrolling */
+}
+
+.year-section, .year1-section, .year2-section {
+  flex: 0 0 80%; /* Set the width for mobile */
+  scroll-snap-align: start; /* Snap each section while scrolling */
+  margin-right: 10px;
+}
+
+.year-section img, .year1-section img, .year2-section img {
+  width: 100%;
+}
+.containers {
+  display: flex;
+  gap: 20px;
+  
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+h2{
+  font-size: 18px;
+}
+}
+
