@@ -17,7 +17,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 25px;
   }
-  
+
+
   .admin-section h2 {
     font-size: 18px;
     margin-bottom: 15px;
@@ -101,6 +102,12 @@
     font-size: 16px;
     line-height: 1.6;
     color: #555;
+  }
+
+  .admin-page .highlight-container {
+    max-width: 100%; /* Set this for the admin page */
+    height: auto;
+    margin: 10px auto; /* To center the container */
   }
   
   .admin-content h2 {

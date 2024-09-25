@@ -21,8 +21,8 @@ function ArticlePage() {
     backButtonContainer: {
       display: 'flex',
       justifyContent: 'flex-start', // Align to the left side
-      marginTop: '20px',
-      marginBottom: '20px',
+      marginTop: '50px',
+      marginBottom: '-30px',
     },
     backButton: {
       background: 'black',

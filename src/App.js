@@ -626,6 +626,7 @@ return (
           <HomePage /> {/* Your existing content */}
         </>} />
 <Route path="/article" element={<ArticlePage />} />
+
   </Routes>
   </Router>
 );
@@ -688,7 +689,9 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   />
 
   <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
+  <a href="/article" className="highlight-link">
     <h2>Our Sri Vanamamalai Mutt</h2>
+    </a>
     <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
       {'One of the unique features here is that, mUlavar emperumAn is also known by the name of the dhivya dhEsam, i.e., vAnamAmalai and thOthAdhrinAthan.'}
     </p>
@@ -700,7 +703,9 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   <div id="news1" className="news-item" onClick={() => navigate('/article')}>
   <img src={news1Image} alt="News1" className="news-image-left" />
   <div className="news-text-content">
+  <a href="/article" className="highlight-link">
     <h2>Our Sri Vanamamalai Mutt</h2>
+    </a>
     <p>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
   </div>
 </div>
@@ -709,7 +714,9 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   <div id="news2" className="news-item">
     <img src={news2Image} alt="News2" className="news-image-left" />
     <div className="news-text-content">
+    <a href="/article" className="highlight-link">
       <h2>Our Sri Vanamamalai Mutt</h2>
+      </a>
       <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
     </div>
   </div>
@@ -717,7 +724,9 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   <div id="news3" className="news-item">
     <img src={news3Image} alt="News3" className="news-image-left" />
     <div className="news-text-content">
+    <a href="/article" className="highlight-link">
       <h2>Our Sri Vanamamalai Mutt</h2>
+      </a>
       <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
     </div>
   </div>

@@ -73,6 +73,7 @@ margin-bottom: 5px;
   align-items: center;
   justify-content: space-between;  /* This ensures items are spread out */
   flex-wrap: wrap;  /* Allows wrapping on smaller screens */
+  border-bottom: 1px solid #ddd;
 }
 
 /* Text alignment and styling */
@@ -181,7 +182,7 @@ main {
   max-width: 100%;
   height: 510px;
 }
-.highlight-link {
+.highlight-link  h2{
   text-decoration: none;
   color: #000000;
   margin-bottom: -20px;
@@ -200,7 +201,6 @@ main {
   font-size: 14px;
   gap: 0;
   align-items: flex-start;
-  border: 1px solid #ccc;
   width: 500px;
   padding: 10px;
 }
@@ -238,7 +238,6 @@ main {
 .news-text-content h2 {
   font-size: 20px;
   margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
 }
 
 .news-text-content p {
@@ -412,14 +411,39 @@ h3 {
   margin-bottom: 10px;
   flex: 2;
 }
-h2 {
+.app .h2 {
   display: flex;
   font-size: 20px;
   margin: 5px;
   font-weight: bold;
   unicode-bidi: isolate;
   color: #000000;
-  border-bottom: 1px solid #ddd;
+  cursor: pointer; /* Makes it clear that the h2 is clickable */
+  transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.app .h2:hover {
+  color: #007bff; /* Changes color on hover */
+  text-decoration: underline; /* Adds underline on hover */
+}
+
+/* Remove the default underline */
+.highlight-link {
+  text-decoration: none; /* Ensure the link itself has no underline */
+}
+
+/* Style the heading inside the link */
+.highlight-link h2 {
+  color: #000000;
+  margin-bottom: 20px;
+  text-decoration: none; /* No underline initially */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Underline appears only on hover */
+.highlight-link:hover h2 {
+  color: #007bff; /* Change color on hover */
+  text-decoration: underline; /* Show underline only on hover */
 }
 
 .itinerary-columns {
@@ -530,7 +554,6 @@ h2 {
 
 .text-content h2 {
   margin: 0 0 10px 0;
-  border-bottom: 1px solid #ddd;
 }
 
 .text-content p {
@@ -923,6 +946,17 @@ h2 {
   position: absolute;
   right: 10px;
 }
+
+.article-page .logologo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  margin-bottom: 40px;
+}
+
 
 /* Edit Button Styles */
 .edit-button {

@@ -15,7 +15,6 @@ const sections = [
       'news1',
       'news2',
       'news3',
-      'container',
       'announcement1',
       'announcement2',
       'announcement3',
@@ -89,12 +88,15 @@ const AdminPage = ({
     const [activeSection, setActiveSection] = useState(null);
     const [lastSaved, setLastSaved] = useState('');
     const [activeSubSection, setActiveSubSection] = useState(null);
+
     
     const [isEditing, setIsEditing] = useState(false); // Track if in editing mode
     
     const [editedHeader, setEditedHeader] = useState('');
     const [editedParagraph, setEditedParagraph] = useState('');
     const [editedImage, setEditedImage] = useState(null);
+    const [editedArticle, setEditedArticle] = useState('');
+    const [editedArticleImage, setEditedArticleImage] = useState(null);
     
     const [editednews1Header, setEditednews1Header] = useState('');
     const [editednews1Paragraph, setEditednews1Paragraph] = useState('');
@@ -157,13 +159,37 @@ const AdminPage = ({
     const [editedevent4Paragraph, setEditedevent4Paragraph] = useState('');
     const [editedEventImage4, setEditedEventImage4] = useState(null);
 
+    
+
+    const fetchHighlightData = async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/highlight-section`);
+        const data = response.data;
+    
+        // Set the fetched data into the corresponding states
+        setEditedHeader(data.header);
+        setEditedParagraph(data.paragraph);
+        setEditedArticle(data.article);
+        setEditedImage(data.image);
+        setEditedArticleImage(data.articleImage);
+      } catch (error) {
+        console.error('Error fetching highlight section data:', error);
+      }
+    };
+
 
     
-    const handleEdit = () => {
+    const handleEdit = (e) => {
         setIsEditing(true);
         setEditedHeader(highlightSectionContent.header);
         setEditedParagraph(highlightSectionContent.paragraph);
         setEditedImage(highlightSectionImage);
+        setEditedArticle(highlightSectionContent.article);
+        if (e.target.files && e.target.files.length > 0) {
+          setEditedArticleImage(URL.createObjectURL(e.target.files[0]));
+        } else {
+          console.error("No files found.");
+        }
         
         setEditednews1Header(news1Content.header);
         setEditednews1Paragraph(news1Content.paragraph);
@@ -230,6 +256,10 @@ const AdminPage = ({
     const handleImageChange = (e) => {
         setEditedImage(URL.createObjectURL(e.target.files[0])); 
     };
+
+    const handleArticleImageChange = (e) => {
+      setEditedArticleImage(URL.createObjectURL(e.target.files[0]));  // Preview the uploaded article image
+  };
     const handlenews1ImageChange = (e) => {
         setEditednews1Image(URL.createObjectURL(e.target.files[0])); 
     };
@@ -307,6 +337,11 @@ const handleEventImage4Change = (e) => {
         }
         formData.append('header', editedHeader);
         formData.append('paragraph', editedParagraph);
+        
+            // If the article image was edited, append it
+        if (editedArticleImage) {
+        formData.append('articleImage', editedArticleImage);  // Add article image
+        }
 
         if (editednews1Image) {
             formData.append('image', editednews1Image);
@@ -459,59 +494,123 @@ formData.append('paragraph', editedevent4Paragraph);
   return (
     <div className="content-display-section">
       {renderButtons()}
-      {activeSubSection === 'highlight-section' &&(
-      <div className="highlight-container" style={{ textAlign: 'center', marginTop: '20px' }}>
-        {isEditing ? (
-          <>
-            <button className="replace-button" onClick={() => document.getElementById('fileInput').click()}>
-            Replace Image
-            </button> <input id="fileInput" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
-            {editedImage && ( <img src={editedImage}  alt="Preview"  style={{ maxWidth: '100%', height: '400px', marginTop: '20px' }} />
-          )}
-            <input type="text"
-              value={editedHeader}
-              onChange={(e) => setEditedHeader(e.target.value)}
-              style={{
-                fontSize: '24px',
-                fontWeight: 'bold',
-                textAlign: 'center',
-                width: '100%',
-                marginBottom: '10px',
-                marginTop: '20px', 
-              }}
-            />
-            <textarea
-              value={editedParagraph}
-              onChange={(e) => setEditedParagraph(e.target.value)}
-              style={{
-                fontSize: '16px',
-                lineHeight: '1.6',
-                textAlign: 'justify',
-                width: '100%',
-                height: '150px',
-                marginBottom: '10px',
-              }}
-            />
-          </>
-        ) : (
-          <>
+{activeSubSection === 'highlight-section' && (
+    <div className="highlight-container" style={{ textAlign: 'center', marginTop: '20px' }}>
+      {isEditing ? (
+        <>
+          {/* Image Upload Button for the Highlight Section Image */}
+          <button className="replace-button" onClick={() => document.getElementById('fileInput').click()}>
+            Replace Highlight Image
+          </button>
+          <input id="fileInput" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
+
+          {/* Highlight Image Preview */}
+          {editedImage && (
             <img
-              src={editedImage || highlightSectionImage}
-              alt="Content Section"
-              style={{ maxWidth: '100%', height: '400px', display: 'block', margin: '0 auto' }}
+              src={editedImage}
+              alt="Preview"
+              style={{ maxWidth: '100%', height: '400px', marginTop: '20px' }}
             />
-            <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
-                {editedHeader || highlightSectionContent.header}
-              </h2>
-              <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-                {editedParagraph || highlightSectionContent.paragraph}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
+          )}
+
+          {/* Header Input */}
+          <input
+            type="text"
+            value={editedHeader}
+            onChange={(e) => setEditedHeader(e.target.value)}
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              width: '100%',
+              marginBottom: '10px',
+              marginTop: '20px',
+            }}
+            placeholder="Edit Header"
+          />
+
+          {/* Paragraph Textarea (Preview Text) */}
+          <textarea
+            value={editedParagraph}
+            onChange={(e) => setEditedParagraph(e.target.value)}
+            style={{
+              fontSize: '16px',
+              lineHeight: '1.6',
+              textAlign: 'justify',
+              width: '100%',
+              height: '150px',
+              marginBottom: '10px',
+            }}
+            placeholder="Edit Preview Text"
+          />
+
+          {/* Article Textarea */}
+          <textarea
+            value={editedArticle}
+            onChange={(e) => setEditedArticle(e.target.value)}
+            style={{
+              fontSize: '16px',
+              lineHeight: '1.6',
+              textAlign: 'justify',
+              width: '100%',
+              height: '300px',
+              marginBottom: '10px',
+            }}
+            placeholder="Edit Full Article"
+          />
+
+          {/* New Section: Upload Article Image */}
+          <button className="replace-button" onClick={() => document.getElementById('articleImageInput').click()}>
+            Replace Article Image
+          </button>
+          <input id="articleImageInput" type="file" onChange={(e) => handleArticleImageChange(e)} style={{ display: 'none' }} />
+
+          {/* Article Image Preview */}
+          {editedArticleImage && (
+            <img
+            src={editedArticleImage || highlightSectionContent.articleImage}  // Use the article image state or a fallback
+            alt="Article Image"
+            style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          {/* Display Highlight Image */}
+          <img
+            src={editedImage || highlightSectionImage}
+            alt="Content Section"
+            style={{ maxWidth: '100%', height: '300px', display: 'block', margin: '0 auto' }}
+          />
+
+          {/* Display Header */}
+          <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
+              {editedHeader || highlightSectionContent.header}
+            </h2>
+
+            {/* Display Preview Text */}
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+              {editedParagraph || highlightSectionContent.paragraph}
+            </p>
+
+            {/* Display Article Text */}
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+              {editedArticle || highlightSectionContent.article}
+            </p>
+
+            {/* Display Article Image */}
+            <img
+              src={editedArticleImage || highlightSectionContent.articleImage} 
+              alt="Article Image"
+              style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
+            />
+          </div>
+        </>
       )}
+    </div>
+  )}
+      
 
       {activeSubSection === 'news1' &&(
       <div className="news-container" style={{ textAlign: 'center', marginTop: '20px' }}>
