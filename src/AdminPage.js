@@ -10,32 +10,11 @@ import axios from 'axios';
 const sections = [
   {
     name: 'Home',
-    subsections: [
-      'highlight-section',
-      'news1',
-      'news2',
-      'news3',
-      'announcement1',
-      'announcement2',
-      'announcement3',
-      'announcement4',
-    ],
+    subsections: ['highlight-section', 'news1', 'news2', 'news3', 'announcement1', 'announcement2', 'announcement3', 'announcement4'],
   },
   {
     name: 'Jeeyar',
-    subsections: [
-      'year',
-      '2023',
-      '2022',
-      'Jeeyar article 1',
-      'Jeeyar article 2',
-      'Jeeyar article 3',
-      'Jeeyar article 4',
-      'Event 1',
-      'Event 2',
-      'Event 3',
-      'Event 4',
-    ],
+    subsections: ['year', '2023', '2022', 'Jeeyar article 1', 'Jeeyar article 2', 'Jeeyar article 3', 'Event 1', 'Event 2', 'Event 3'],
   },
 ];
 
@@ -81,6 +60,7 @@ const AdminPage = ({
   EventImage3,
   EventImage4,
 
+
   
 }) => {
     const location = useLocation(); // Get location data
@@ -89,14 +69,16 @@ const AdminPage = ({
     const [lastSaved, setLastSaved] = useState('');
     const [activeSubSection, setActiveSubSection] = useState(null);
 
+    const [highlightSectionData, setHighlightSectionData] = useState(null);
+    const [error, setError] = useState(null);
     
-    const [isEditing, setIsEditing] = useState(false); // Track if in editing mode
     
     const [editedHeader, setEditedHeader] = useState('');
     const [editedParagraph, setEditedParagraph] = useState('');
-    const [editedImage, setEditedImage] = useState(null);
     const [editedArticle, setEditedArticle] = useState('');
+    const [editedImage, setEditedImage] = useState(null);
     const [editedArticleImage, setEditedArticleImage] = useState(null);
+    const [isEditing, setIsEditing] = useState(false); // Editing mode state
     
     const [editednews1Header, setEditednews1Header] = useState('');
     const [editednews1Paragraph, setEditednews1Paragraph] = useState('');
@@ -159,37 +141,57 @@ const AdminPage = ({
     const [editedevent4Paragraph, setEditedevent4Paragraph] = useState('');
     const [editedEventImage4, setEditedEventImage4] = useState(null);
 
+    const formatDate = (date) => {
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      return new Date(date).toLocaleDateString('en-GB', options);
+    };
     
+    
+    useEffect(() => {
+      const fetchHighlightSectionData = async () => {
+        try {
+          const response = await axios.get('https://andaal.in/gbm/api/articles/highlight_section');
+          setHighlightSectionData(response.data); // Store fetched data
+    
+          // Populate editing states with fetched data to allow editing
+          setEditedHeader(response.data.header);
+          setEditedParagraph(response.data.preview_text);
+          setEditedArticle(response.data.article_text);
+          setEditedImage(response.data.preview_image);
+          setEditedArticleImage(response.data.articleImage);
+        } catch (err) {
+          setError('Failed to fetch data from API.');
+          console.error('Error fetching highlight section data:', err);
+        }
+      };
+    
+      fetchHighlightSectionData();
+    }, []);
 
-    const fetchHighlightData = async () => {
-      try {
-        const response = await axios.get(`${serverUrl}/highlight-section`);
-        const data = response.data;
+    const handlePublish = () => {
+      // Logic to publish the content
+      console.log('Publish button clicked');
+      setLastSaved(new Date()); 
+      // Add your publish logic here
+    };
     
-        // Set the fetched data into the corresponding states
-        setEditedHeader(data.header);
-        setEditedParagraph(data.paragraph);
-        setEditedArticle(data.article);
-        setEditedImage(data.image);
-        setEditedArticleImage(data.articleImage);
-      } catch (error) {
-        console.error('Error fetching highlight section data:', error);
-      }
+    const handleDraft = () => {
+      // Logic to save content as draft
+      console.log('Draft button clicked');
+      setLastSaved(new Date()); 
+      // Add your draft logic here
     };
 
 
     
     const handleEdit = (e) => {
-        setIsEditing(true);
-        setEditedHeader(highlightSectionContent.header);
-        setEditedParagraph(highlightSectionContent.paragraph);
-        setEditedImage(highlightSectionImage);
-        setEditedArticle(highlightSectionContent.article);
-        if (e.target.files && e.target.files.length > 0) {
-          setEditedArticleImage(URL.createObjectURL(e.target.files[0]));
-        } else {
-          console.error("No files found.");
-        }
+      setIsEditing(true);
+      // Ensure editable fields are populated with current data
+      setEditedHeader(highlightSectionData?.heading || '');
+      setEditedParagraph(highlightSectionData?.preview_text || '');
+      setEditedArticle(highlightSectionData?.article_text || '');
+      setEditedImage(highlightSectionData?.preview_image || null);
+      setEditedArticleImage(highlightSectionData?.articleImage || null);
         
         setEditednews1Header(news1Content.header);
         setEditednews1Paragraph(news1Content.paragraph);
@@ -254,8 +256,10 @@ const AdminPage = ({
     };
 
     const handleImageChange = (e) => {
-        setEditedImage(URL.createObjectURL(e.target.files[0])); 
-    };
+      if (e.target.files[0]) {
+         setEditedImage(e.target.files[0]); // Set the file itself
+      }
+   };
 
     const handleArticleImageChange = (e) => {
       setEditedArticleImage(URL.createObjectURL(e.target.files[0]));  // Preview the uploaded article image
@@ -331,141 +335,154 @@ const handleEventImage4Change = (e) => {
 };
 
     const handleSave = async () => {
-        const formData = new FormData();
-        if (editedImage) {
-            formData.append('image', editedImage);
-        }
-        formData.append('header', editedHeader);
-        formData.append('paragraph', editedParagraph);
-        
-            // If the article image was edited, append it
-        if (editedArticleImage) {
-        formData.append('articleImage', editedArticleImage);  // Add article image
-        }
+      const formData = new FormData();
+      formData.append('section_id', 'highlight_section');
+      formData.append('heading', editedHeader);
+      formData.append('preview_text', editedParagraph);
+      formData.append('article_text', editedArticle);
+      if (editedImage) formData.append('preview_image', editedImage);
+      if (editedArticleImage) formData.append('articleImage', editedArticleImage);
 
-        if (editednews1Image) {
-            formData.append('image', editednews1Image);
-        }
-        formData.append('header', editednews1Header);
-        formData.append('paragraph', editednews1Paragraph);
+//         if (editednews1Image) {
+//             formData.append('image', editednews1Image);
+//         }
+//         formData.append('header', editednews1Header);
+//         formData.append('paragraph', editednews1Paragraph);
 
-        if (editednews2Image) {
-            formData.append('image', editednews2Image);
-        }
-        formData.append('header', editednews2Header);
-        formData.append('paragraph', editednews2Paragraph);
+//         if (editednews2Image) {
+//             formData.append('image', editednews2Image);
+//         }
+//         formData.append('header', editednews2Header);
+//         formData.append('paragraph', editednews2Paragraph);
 
-        if (editednews3Image) {
-            formData.append('image', editednews3Image);
-        }
-        formData.append('header', editednews3Header);
-        formData.append('paragraph', editednews3Paragraph);
+//         if (editednews3Image) {
+//             formData.append('image', editednews3Image);
+//         }
+//         formData.append('header', editednews3Header);
+//         formData.append('paragraph', editednews3Paragraph);
 
-        if (editedannouncement1Image) {
-          formData.append('image', editedannouncement1Image);
-      }
-      formData.append('paragraph', editedannouncement1Paragraph);
+//         if (editedannouncement1Image) {
+//           formData.append('image', editedannouncement1Image);
+//       }
+//       formData.append('paragraph', editedannouncement1Paragraph);
 
-      if (editedannouncement2Image) {
-        formData.append('image', editedannouncement2Image);
-    }
-    formData.append('paragraph', editedannouncement2Paragraph);
+//       if (editedannouncement2Image) {
+//         formData.append('image', editedannouncement2Image);
+//     }
+//     formData.append('paragraph', editedannouncement2Paragraph);
 
-    if (editedannouncement3Image) {
-      formData.append('image', editedannouncement3Image);
-  }
-  formData.append('paragraph', editedannouncement3Paragraph);
+//     if (editedannouncement3Image) {
+//       formData.append('image', editedannouncement3Image);
+//   }
+//   formData.append('paragraph', editedannouncement3Paragraph);
 
-  if (editedannouncement4Image) {
-    formData.append('image', editedannouncement4Image);
+//   if (editedannouncement4Image) {
+//     formData.append('image', editedannouncement4Image);
+// }
+// formData.append('paragraph', editedannouncement4Paragraph);
+
+// if (editedyearImage) {
+//   formData.append('image', editedyearImage);
+// }
+// formData.append('paragraph', editedyearParagraph);
+
+// if (editedyear1Image) {
+//   formData.append('image', editedyear1Image);
+// }
+// formData.append('paragraph', editedyear1Paragraph);
+
+// if (editedyear2Image) {
+//   formData.append('image', editedyear2Image);
+// }
+// formData.append('paragraph', editedyear2Paragraph);
+
+// if (editedimageUrl1) {
+//   formData.append('image', editedimageUrl1);
+// }
+// formData.append('header', editedcontent1Header);
+// formData.append('paragraph', editedcontent1Paragraph);
+
+// if (editedimageUrl2) {
+//   formData.append('image', editedimageUrl2);
+// }
+// formData.append('header', editedcontent2Header);
+// formData.append('paragraph', editedcontent2Paragraph);
+
+// if (editedimageUrl3) {
+//   formData.append('image', editedimageUrl3);
+// }
+// formData.append('header', editedcontent3Header);
+// formData.append('paragraph', editedcontent3Paragraph);
+
+// if (editedimageUrl4) {
+//   formData.append('image', editedimageUrl4);
+// }
+// formData.append('header', editedcontent4Header);
+// formData.append('paragraph', editedcontent4Paragraph);
+
+// if (editedEventImage) {
+//   formData.append('image', editedEventImage);
+// }
+// formData.append('paragraph', editedevent1Paragraph);
+
+// if (editedEventImage2) {
+//   formData.append('image', editedEventImage2);
+// }
+// formData.append('paragraph', editedevent2Paragraph);
+
+// if (editedEventImage3) {
+//   formData.append('image', editedEventImage3);
+// }
+// formData.append('paragraph', editedevent3Paragraph);
+
+// if (editedEventImage4) {
+//   formData.append('image', editedEventImage4);
+// }
+// formData.append('paragraph', editedevent4Paragraph);
+
+try {
+  // Save the updated content to the server
+  console.log(formData)
+  await axios.post('https://andaal.in/gbm/api/articles', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  setIsEditing(false);
+  setHighlightSectionData({
+    header: editedHeader,
+    preview_text: editedParagraph,
+    article_text: editedArticle,
+    preview_image: editedImage,
+    articleImage: editedArticleImage,
+  });
+  alert('Content saved successfully!');
+} catch (error) {
+  console.error('Error saving content:', error);
+  console.log(formData)
+  alert('Failed to save content.');
 }
-formData.append('paragraph', editedannouncement4Paragraph);
-
-if (editedyearImage) {
-  formData.append('image', editedyearImage);
-}
-formData.append('paragraph', editedyearParagraph);
-
-if (editedyear1Image) {
-  formData.append('image', editedyear1Image);
-}
-formData.append('paragraph', editedyear1Paragraph);
-
-if (editedyear2Image) {
-  formData.append('image', editedyear2Image);
-}
-formData.append('paragraph', editedyear2Paragraph);
-
-if (editedimageUrl1) {
-  formData.append('image', editedimageUrl1);
-}
-formData.append('header', editedcontent1Header);
-formData.append('paragraph', editedcontent1Paragraph);
-
-if (editedimageUrl2) {
-  formData.append('image', editedimageUrl2);
-}
-formData.append('header', editedcontent2Header);
-formData.append('paragraph', editedcontent2Paragraph);
-
-if (editedimageUrl3) {
-  formData.append('image', editedimageUrl3);
-}
-formData.append('header', editedcontent3Header);
-formData.append('paragraph', editedcontent3Paragraph);
-
-if (editedimageUrl4) {
-  formData.append('image', editedimageUrl4);
-}
-formData.append('header', editedcontent4Header);
-formData.append('paragraph', editedcontent4Paragraph);
-
-if (editedEventImage) {
-  formData.append('image', editedEventImage);
-}
-formData.append('paragraph', editedevent1Paragraph);
-
-if (editedEventImage2) {
-  formData.append('image', editedEventImage2);
-}
-formData.append('paragraph', editedevent2Paragraph);
-
-if (editedEventImage3) {
-  formData.append('image', editedEventImage3);
-}
-formData.append('paragraph', editedevent3Paragraph);
-
-if (editedEventImage4) {
-  formData.append('image', editedEventImage4);
-}
-formData.append('paragraph', editedevent4Paragraph);
-
-        try {
-            const response = await axios.post(`${serverUrl}/save-content`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            setLastSaved(new Date().toLocaleDateString());
-            // Handle response, update the content with the new data
-        } catch (error) {
-            console.error('Error saving content:', error);
-        }
-        setIsEditing(false);
-    };
+};
 
     const renderButtons = () => (
-        <div className='button-containers' style={{ textAlign: 'center' }}>
-            <div className='edit-publish'>
-                {!isEditing ? (
-                    <button onClick={handleEdit}>Edit</button>
-                ) : (
-                    <button onClick={handleSave}>Save</button>
-                )}
-            </div>
-            <div className='name-date'>
-                Created by: {adminName}
-                {lastSaved && <div>Date: {lastSaved}</div>}
-            </div>
+      <div className="button-containers" style={{ textAlign: 'center' }}>
+        {/* Button Section */}
+        <div className="edit-publish">
+          {!isEditing ? (
+            <button onClick={handleEdit}>Edit</button>
+          ) : (
+            <>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handlePublish}>Publish</button>
+              <button onClick={handleDraft}>Draft</button>
+            </>
+          )}
+       </div>
+    
+        {/* Created By and Date Section */}
+        <div className="name-date">
+          <div className="created-by">Created by: {adminName}</div>
+          {lastSaved && <div className="date">Date: {formatDate(lastSaved)}</div>}
         </div>
+      </div>
     );
     
   const handleSectionClick = (section) => {
@@ -489,198 +506,161 @@ formData.append('paragraph', editedevent4Paragraph);
 
   const renderContent = () => {
     if (!activeSubSection) {
-    return <p>Please select a subsection to display content.</p>;
-  }
-  return (
-    <div className="content-display-section">
-      {renderButtons()}
-{activeSubSection === 'highlight-section' && (
-    <div className="highlight-container" style={{ textAlign: 'center', marginTop: '20px' }}>
-      {isEditing ? (
-        <>
-          {/* Image Upload Button for the Highlight Section Image */}
-          <button className="replace-button" onClick={() => document.getElementById('fileInput').click()}>
-            Replace Highlight Image
-          </button>
-          <input id="fileInput" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
-
-          {/* Highlight Image Preview */}
-          {editedImage && (
-            <img
-              src={editedImage}
-              alt="Preview"
-              style={{ maxWidth: '100%', height: '400px', marginTop: '20px' }}
-            />
-          )}
-
-          {/* Header Input */}
-          <input
-            type="text"
-            value={editedHeader}
-            onChange={(e) => setEditedHeader(e.target.value)}
-            style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              textAlign: 'center',
-              width: '100%',
-              marginBottom: '10px',
-              marginTop: '20px',
-            }}
-            placeholder="Edit Header"
-          />
-
-          {/* Paragraph Textarea (Preview Text) */}
-          <textarea
-            value={editedParagraph}
-            onChange={(e) => setEditedParagraph(e.target.value)}
-            style={{
-              fontSize: '16px',
-              lineHeight: '1.6',
-              textAlign: 'justify',
-              width: '100%',
-              height: '150px',
-              marginBottom: '10px',
-            }}
-            placeholder="Edit Preview Text"
-          />
-
-          {/* Article Textarea */}
-          <textarea
-            value={editedArticle}
-            onChange={(e) => setEditedArticle(e.target.value)}
-            style={{
-              fontSize: '16px',
-              lineHeight: '1.6',
-              textAlign: 'justify',
-              width: '100%',
-              height: '300px',
-              marginBottom: '10px',
-            }}
-            placeholder="Edit Full Article"
-          />
-
-          {/* New Section: Upload Article Image */}
-          <button className="replace-button" onClick={() => document.getElementById('articleImageInput').click()}>
-            Replace Article Image
-          </button>
-          <input id="articleImageInput" type="file" onChange={(e) => handleArticleImageChange(e)} style={{ display: 'none' }} />
-
-          {/* Article Image Preview */}
-          {editedArticleImage && (
-            <img
-            src={editedArticleImage || highlightSectionContent.articleImage}  // Use the article image state or a fallback
-            alt="Article Image"
-            style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
-            />
-          )}
-        </>
-      ) : (
-        <>
-          {/* Display Highlight Image */}
-          <img
-            src={editedImage || highlightSectionImage}
-            alt="Content Section"
-            style={{ maxWidth: '100%', height: '300px', display: 'block', margin: '0 auto' }}
-          />
-
-          {/* Display Header */}
-          <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <h2 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
-              {editedHeader || highlightSectionContent.header}
-            </h2>
-
-            {/* Display Preview Text */}
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-              {editedParagraph || highlightSectionContent.paragraph}
-            </p>
-
-            {/* Display Article Text */}
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-              {editedArticle || highlightSectionContent.article}
-            </p>
-
-            {/* Display Article Image */}
-            <img
-              src={editedArticleImage || highlightSectionContent.articleImage} 
-              alt="Article Image"
-              style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
-            />
-          </div>
-        </>
-      )}
-    </div>
-  )}
-      
-
-      {activeSubSection === 'news1' &&(
-      <div className="news-container" style={{ textAlign: 'center', marginTop: '20px' }}>
-        {isEditing ? (
-          <>
-            <button
-            
-            className="replace-button"
-            onClick={() => document.getElementById('fileInput').click()} // Click hidden file input
-            >
-            Replace Image
-            </button>
-            <input
-              id="fileInput"
-              type="file"
-              onChange={handlenews1ImageChange}
-              style={{ display: 'none' }} 
-            />
-            {editednews1Image && (
-              <img
-                src={editednews1Image}
-                alt="Preview"
-                style={{ maxWidth: '100%', height: '400px', marginTop: '20px' }}
-              />
+      return <p>Please select a subsection to display content.</p>;
+    }
+  
+    // Render content based on the active subsection
+    return (
+      <div className="content-display-section">
+        {renderButtons()}
+        {activeSubSection === 'highlight-section' && (
+          <div className="highlight-container" style={{ textAlign: 'center', marginTop: '20px' }}>
+            {isEditing ? (
+              <>
+                {/* Image Upload Button for the Highlight Section Image */}
+                <button
+                  className="replace-button"
+                  onClick={() => document.getElementById('fileInput').click()}
+                >
+                  Replace Image
+                </button>
+                <input
+                  id="fileInput"
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }}
+                />
+  
+                {/* Highlight Image Preview */}
+                {editedImage && (
+                  <img
+                    src={editedImage}
+                    alt="Preview"
+                    style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
+                  />
+                )}
+  
+                {/* Header Input */}
+                <input
+                  type="text"
+                  value={editedHeader}
+                  onChange={(e) => setEditedHeader(e.target.value)}
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    width: '100%',
+                    marginBottom: '10px',
+                    marginTop: '20px',
+                  }}
+                  placeholder="Edit Header"
+                />
+  
+                {/* Paragraph Textarea (Preview Text) */}
+                <textarea
+                  value={editedParagraph}
+                  onChange={(e) => setEditedParagraph(e.target.value)}
+                  style={{
+                    fontSize: '16px',
+                    lineHeight: '1.6',
+                    textAlign: 'justify',
+                    width: '100%',
+                    height: '150px',
+                    marginBottom: '10px',
+                  }}
+                  placeholder="Edit Preview Text"
+                />
+  
+                {/* Article Textarea */}
+                <textarea
+                  value={editedArticle}
+                  onChange={(e) => setEditedArticle(e.target.value)}
+                  style={{
+                    fontSize: '16px',
+                    lineHeight: '1.6',
+                    textAlign: 'justify',
+                    width: '100%',
+                    height: '300px',
+                    marginBottom: '10px',
+                  }}
+                  placeholder="Edit Full Article"
+                />
+  
+                {/* New Section: Upload Article Image */}
+                <button
+                  className="replace-button"
+                  onClick={() => document.getElementById('articleImageInput').click()}
+                >
+                  Replace Article Image
+                </button>
+                <input
+                  id="articleImageInput"
+                  type="file"
+                  onChange={(e) => handleArticleImageChange(e)}
+                  style={{ display: 'none' }}
+                />
+  
+                {/* Article Image Preview */}
+                {editedArticleImage && (
+                  <img
+                    src={editedArticleImage || highlightSectionContent.articleImage}
+                    alt="Article Image"
+                    style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
+                  />
+                )}
+              </>
+            ) : (
+              <>
+                {error ? (
+                  <p>{error}</p>
+                ) : !highlightSectionData ? (
+                  <p>Loading...</p>
+                ) : (
+                  <>
+                    {/* Display Highlight Image */}
+                    <img
+                      src={editedImage || highlightSectionData.preview_image}
+                      alt="Content Section"
+                      style={{
+                        maxWidth: '100%',
+                        height: '300px',
+                        display: 'block',
+                        margin: '0 auto',
+                      }}
+                    />
+  
+                    {/* Display Header */}
+                    <div
+                      className="highlight-content"
+                      style={{ textAlign: 'center', marginTop: '20px' }}
+                    >
+                      <h2 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
+                        {editedHeader || highlightSectionData.heading}
+                      </h2>
+  
+                      {/* Display Preview Text */}
+                      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+                        {editedParagraph || highlightSectionData.preview_text}
+                      </p>
+  
+                      {/* Display Article Text */}
+                      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+                        {editedArticle || highlightSectionData.article_text}
+                      </p>
+  
+                      {/* Display Article Image */}
+                      <img
+                        src={editedArticleImage || highlightSectionData.articleImage}
+                        alt="Article Image"
+                        style={{ maxWidth: '100%', height: '300px', marginTop: '20px' }}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
             )}
-            <input
-              type="text"
-              value={editednews1Header}
-              onChange={(e) => setEditednews1Header(e.target.value)}
-              style={{
-                fontSize: '24px',
-                fontWeight: 'bold',
-                textAlign: 'center',
-                width: '100%',
-                marginBottom: '10px',
-                marginTop: '20px', 
-              }}
-            />
-            <textarea
-              value={editednews1Paragraph}
-              onChange={(e) => setEditednews1Paragraph(e.target.value)}
-              style={{
-                fontSize: '16px',
-                lineHeight: '1.6',
-                textAlign: 'justify',
-                width: '100%',
-                height: '150px',
-                marginBottom: '10px',
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <img
-              src={editednews1Image || news1Image}
-              alt="News1 Image"
-              style={{ maxWidth: '100%', height: '400px', display: 'block', margin: '0 auto' }}
-            />
-            <div className="news-container" style={{ textAlign: 'center', marginTop: '20px' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
-                {editednews1Header || news1Content.header}
-              </h2>
-              <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-                {editednews1Paragraph || news1Content.paragraph}
-              </p>
-            </div>
-          </>
+          </div>
         )}
-      </div>
-      )}
 
       
     {activeSubSection === 'news2' &&(
@@ -1792,3 +1772,4 @@ formData.append('paragraph', editedevent4Paragraph);
 };
 
 export default AdminPage;
+

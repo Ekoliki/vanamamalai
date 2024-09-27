@@ -13,6 +13,12 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
+*::before,
+*::after .admin-controls {
+  box-sizing: inherit;
+  height: 300px;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -434,7 +440,7 @@ h3 {
 
 /* Style the heading inside the link */
 .highlight-link h2 {
-  color: #000000;
+  color: #221f1f;
   margin-bottom: 20px;
   text-decoration: none; /* No underline initially */
   transition: color 0.3s ease, text-decoration 0.3s ease;
@@ -442,7 +448,7 @@ h3 {
 
 /* Underline appears only on hover */
 .highlight-link:hover h2 {
-  color: #007bff; /* Change color on hover */
+  color: #000000; /* Change color on hover */
   text-decoration: underline; /* Show underline only on hover */
 }
 
