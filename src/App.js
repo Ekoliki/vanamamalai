@@ -5,58 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import bannerImage from './assets/banner-image.png'; 
 
-import imageUrl from './assets/patashala-image1.jpg'
-import imageUrl1 from './assets/patashala-image1.jpg'
-import imageUrl2 from './assets/patashala-image1.jpg'
-import imageUrl3 from './assets/patashala-image1.jpg'
-import imageUrl4 from './assets/patashala-image1.jpg'
-import newsImage1 from './assets/patashala-image1.jpg';
-import newsImage2 from './assets/patashala-image2.jpg';
-import newsImage3 from './assets/patashala-image3.jpg';
-import newsImage4 from './assets/patashala-image4.jpg';
-
 import patashalaimage from './assets/patashalaimage.jpg'
-
-import courseImage from './assets/courseImage.jpg'
-import courseImage1 from './assets/courseImage1.jpg'
-import courseImage2 from './assets/courseImage2.jpg'
-
-
-import templeImage from './assets/temple-image.jpg';
-import templeImage2 from './assets/temple-image2.jpg';
-import templeImage3 from './assets/temple-image3.jpg';
-import templeImage4 from './assets/temple-image4.jpg';
-import templeImage5 from './assets/temple-image5.jpg';
-import templeImage6 from './assets/temple-image6.jpg';
 
 import EventImage from './assets/event-item.jpg';
 import EventImage2 from './assets/event-item2.jpg';
 import EventImage3 from './assets/event-item3.jpg';
 import EventImage4 from './assets/event-item4.jpg';
 
-import galleryphoto1 from './assets/galleryphoto1.jpg'
-import galleryphoto2 from './assets/galleryphoto2.jpg'
-import galleryphoto3 from './assets/galleryphoto3.jpg'
-import galleryphoto4 from './assets/galleryphoto4.jpg'
-import galleryphoto5 from './assets/galleryphoto5.jpg'
-import galleryphoto6 from './assets/galleryphoto6.jpg'
-import galleryphoto7 from './assets/galleryphoto7.jpg'
-import galleryphoto8 from './assets/galleryphoto8.jpg'
-
-
-import news1ImageDefault from './assets/news-image1.jpg';
-import news2ImageDefault from './assets/news-image2.jpg';
-import news3ImageDefault from './assets/news-image3.jpg';
-import news4ImageDefault from './assets/news-image4.jpg';
 
 import announcement1ImageDefault from './assets/announcement-image1.jpg';  // Replace with actual path
 import announcement2ImageDefault from './assets/announcement-image2.jpg';  // Replace with actual path
 import announcement3ImageDefault from './assets/announcement-image3.jpg';  // Replace with actual path
 import announcement4ImageDefault from './assets/announcement-image4.jpg';  // Replace with actual path
-
-import yearImageDefault from './assets/map-image.jpg';
-import year1ImageDefault from './assets/map-image2.jpg';
-import year2ImageDefault from './assets/map-image3.jpg';
 
 
 import logoImage from './assets/logo-image.png';
@@ -67,9 +27,6 @@ import { FaUserCircle } from 'react-icons/fa'; // Import icon for login
 import { BrowserRouter as Router, Route, Routes, Link,useNavigate } from 'react-router-dom';
 import Login from './Login'; // Import the Login component
 import AdminPage from './AdminPage'; // Import your AdminPage component
-
-import highlightSectionImage from './assets/highlight-image.jpg'; // Update the path based on your directory structure
-import highlightSectionImageSrc from './assets/highlight-image.jpg'; // Update this path based on your directory structure
 import ArticlePage from './pages/ArticlePage';
 import HeaderNavbar from './components/HeaderNavbar'; // Correct path to HeaderNavbar
 
@@ -77,147 +34,430 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false); // State to manage admin login
   const [content, setContent] = useState("Default content text"); // State for editable content
   const [originalContent, setOriginalContent] = useState("Default content text"); // Store original content
-  
   const [imageSrc, setImageSrc] = useState("./assets/map-image3.jpg"); // State to store uploaded image URL
-
-  
-  const [news1Text, setNews1Text] = useState('Default text for news1');
+   const [news1Text, setNews1Text] = useState('Default text for news1');
   const [news2Text, setNews2Text] = useState('Default text for news2');
   const [news3Text, setNews3Text] = useState('Default text for news3');
-  const [news4Text, setNews4Text] = useState('Default text for news4');
-
-  const [news1Image, setNews1Image] = useState(news1ImageDefault);
-  const [news2Image, setNews2Image] = useState(news2ImageDefault);
-  const [news3Image, setNews3Image] = useState(news3ImageDefault);
-  const [news4Image, setNews4Image] = useState(news4ImageDefault);
-
-  const [announcement1Text, setAnnouncement1Text] = useState('Default text for announcement1');
-  const [announcement2Text, setAnnouncement2Text] = useState('Default text for announcement2');
-  const [announcement3Text, setAnnouncement3Text] = useState('Default text for announcement3');
-  const [announcement4Text, setAnnouncement4Text] = useState('Default text for announcement4');
-
-  const [announcement1Image, setAnnouncement1Image] = useState(announcement1ImageDefault);
-  const [announcement2Image, setAnnouncement2Image] = useState(announcement2ImageDefault);
-  const [announcement3Image, setAnnouncement3Image] = useState(announcement3ImageDefault);
-  const [announcement4Image, setAnnouncement4Image] = useState(announcement4ImageDefault);
-
-  const [yearText, setYearText] = useState('Default text for year');
-  const [year1Text, setYear1Text] = useState('Default text for year1');
-  const [year2Text, setYear2Text] = useState('Default text for year2');
-
-  const [yearImage, setYearImage] = useState(yearImageDefault);
-  const [year1Image, setYear1Image] = useState(year1ImageDefault);
-  const [year2Image, setYear2Image] = useState(year2ImageDefault);
   
-
-  const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+   const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
   
-  const [highlightSectionContent, setHighlightSectionContent] = useState({
-    header: "Our Sri Vanamamalai Mutt", 
-    paragraph: "One of the unique features here is that, mUlavar emperumAn is also known by the name of the dhivya dhEsam, i.e., vAnamAmalai and thOthAdhrinAthan."
-  });
-  
+const [highlightSectionImage, setHighlightSectionImage] = useState(''); // Initialized empty, will update from API
+const [highlightSectionTitle, setHighlightSectionTitle] = useState(''); // State to store the article title
+const [highlightSectionContent, setHighlightSectionContent] = useState(''); // State to store the article content
 
-  
-  // Dynamic content for each news section (header and paragraph)
-  const [news1Content, setNews1Content] = useState({
-    header: "News 1: A Historic Event",
-    paragraph: "This is the detailed description of the first news item, which provides an insight into the history of the event."
-  });
+// News section state
+const [news1Image, setNews1Image] = useState('');
+const [news1Title, setNews1Title] = useState('');
+const [news1Content, setNews1Content] = useState('');
 
-  const [news2Content, setNews2Content] = useState({
-    header: "News 2: Another Major Update",
-    paragraph: "This is the second news item's content, detailing a major update in the community."
-  });
+const [news2Image, setNews2Image] = useState('');
+const [news2Title, setNews2Title] = useState('');
+const [news2Content, setNews2Content] = useState('');
 
-  const [news3Content, setNews3Content] = useState({
-    header: "News 3: A Notable Milestone",
-    paragraph: "The third news item highlights a key milestone in the organization's history."
-  });
+const [news3Image, setNews3Image] = useState('');
+const [news3Title, setNews3Title] = useState('');
+const [news3Content, setNews3Content] = useState('');
 
-  const [news4Content, setNews4Content] = useState({
-    header: "News 4: Looking Ahead",
-    paragraph: "This news section provides insights into the future events and plans."
-  });
+//announcement Section
 
-  const [announcement1Content, setAnnouncement1Content] = useState({
-    paragraph: "Default Announcement 1 Paragraph"
-  });
-  
-  const [announcement2Content, setAnnouncement2Content] = useState({
-    paragraph: "Default Announcement 2 Paragraph"
-  });
-  
-  const [announcement3Content, setAnnouncement3Content] = useState({
-    paragraph: "Default Announcement 3 Paragraph"
-  });
-  
-  const [announcement4Content, setAnnouncement4Content] = useState({
-    paragraph: "Default Announcement 4 Paragraph"
-  });
-  const [yearContent, setYearContent] = useState({
-    paragraph: "Default Upcoming itinerary Paragraph"
-  });
-  
-  const [year1Content, setYear1Content] = useState({
-    paragraph: "Default 2023 Paragraph"
-  });
-  
-  const [year2Content, setYear2Content] = useState({
-    paragraph: "Default 2022 Paragraph"
-  });
-  
-const [content1, setContent1] = useState({
-  header: "Sri Vanamamalai Mutt",
-  paragraph: "Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage."
-});
+const [announcement1Image, setAnnouncement1Image] = useState('');
+const [announcement1Text, setAnnouncement1Text] = useState('');
 
-const [content2, setContent2] = useState({
-  header: "Divya Desam Temples",
-  paragraph: "The Mutt is closely associated with the Divya Desam temples, preserving ancient traditions and practices."
-});
+const [announcement2Image, setAnnouncement2Image] = useState('');
+const [announcement2Text, setAnnouncement2Text] = useState('');
 
-const [content3, setContent3] = useState({
-  header: "Our Spiritual Leader",
-  paragraph: "The present leader of the Mutt continues the legacy of guiding devotees with wisdom and compassion."
-});
+const [announcement3Image, setAnnouncement3Image] = useState('');
+const [announcement3Text, setAnnouncement3Text] = useState('');
 
-const [content4, setContent4] = useState({
-  header: "Rich History",
-  paragraph: "With centuries of history, the Mutt is a symbol of the unbroken spiritual heritage of Srivaishnavism."
-});
+const [announcement4Image, setAnnouncement4Image] = useState('');
+const [announcement4Text, setAnnouncement4Text] = useState('');
 
-const [event1Paragraph, setEvent1Paragraph] = useState(
-  "Shrimad Paramahamsethyadi Sri Madhurakavi Vanamamalai Ramanuja Jeeyar Swami's (31st Peetathipadhi) ChaturMasya Vrata Sankalpam at Sri Vanamamalai Mutt, Nanguneri."
-);
+const [muttImageUrl, setMuttImageUrl] = useState('');
+const [muttDescription, setMuttDescription] = useState('');
+const [muttTitle, setMuttTitle] = useState('');
 
-const [event2Paragraph, setEvent2Paragraph] = useState(
-  "Sri Aandal Nachiyar Thiruvadipoora Uthsavam day 10 at Sri Vanamamalai. Sri Varamangai Nachiyar, Sri Aandal samedha Sri Deivanayaga Perumal Purappadu."
-);
+// jeeyars year
 
-const [event3Paragraph, setEvent3Paragraph] = useState(
-  "Sri Aandal Nachiyar Thiruvadipoora Uthsavam day 09 at Sri Vanamamalai."
-);
+const [yearImage, setYearImage] = useState('');
+const [yearText, setYearText] = useState('');
 
-const [event4Paragraph, setEvent4Paragraph] = useState(
-  "Aadi Friday - Sri Varamangai Nachiyar and Sri Aandal Nachiyar Purappadu at Sri Vanamamalai Dhivya Desam."
-);
+const [year1Image, setYear1Image] = useState('');
+const [year1Text, setYear1Text] = useState('');
 
-  
-  const [highlightSectionImage, setHighlightSectionImage] = useState(highlightSectionImageSrc); // Image state
-  
-  // Fetch the latest content from the backend
-  useEffect(() => {
-    const fetchContent = async () => {
+const [year2Image, setYear2Image] = useState('');
+const [year2Text, setYear2Text] = useState('');
+
+// jeeyars travels
+
+const [content1Image, setContent1Image] = useState('');
+const [content1Text, setContent1Text] = useState('');
+const [content1Heading, setContent1Heading]= useState('');
+
+const [content2Image, setContent2Image] = useState('');
+const [content2Text, setContent2Text] = useState('');
+const [content2Heading, setContent2Heading]= useState('');
+
+const [content3Image, setContent3Image] = useState('');
+const [content3Text, setContent3Text] = useState('');
+const [content3Heading, setContent3Heading]= useState('');
+
+const [content4Image, setContent4Image] = useState('');
+const [content4Text, setContent4Text] = useState('');
+const [content4Heading, setContent4Heading]= useState('');
+
+// Event Section 
+
+const [event1Image, setEvent1Image] = useState('');
+const [event1Text, setEvent1Text] = useState('');
+
+const [event2Image, setEvent2Image] = useState('');
+const [event2Text, setEvent2Text] = useState('');
+
+const [event3Image, setEvent3Image] = useState('');
+const [event3Text, setEvent3Text] = useState('');
+
+const [event4Image, setEvent4Image] = useState('');
+const [event4Text, setEvent4Text] = useState('');
+
+// Temple Section
+
+const [templeImage1, setTempleImage1] = useState('');
+const [templeImage2, setTempleImage2] = useState('');
+const [templeImage3, setTempleImage3] = useState('');
+const [templeImage4, setTempleImage4] = useState('');
+const [templeImage5, setTempleImage5] = useState('');
+const [templeImage6, setTempleImage6] = useState('');
+
+const [templeText1, setTempleText1] = useState('');
+const [templeText2, setTempleText2] = useState('');
+const [templeText3, setTempleText3] = useState('');
+const [templeText4, setTempleText4] = useState('');
+const [templeText5, setTempleText5] = useState('');
+const [templeText6, setTempleText6] = useState('');
+
+//Patasala section 
+
+const [courseImage, setCourseImage] = useState('');
+const [courseText, setCourseText] = useState('');
+
+const [admissionImage, setAdmissionImage] = useState('');
+const [admissionText, setAdmissionText] = useState('');
+
+const [eventsImage, setEventsImage] = useState('');
+const [eventsText, setEventsText] = useState('');
+
+//patasala Gallery
+
+const [patasalaGallery1Image, setPatasalaGallery1Image] = useState('');
+const [patasalaGallery1Text, setPatasalaGallery1Text] = useState('');
+
+const [patasalaGallery2Image, setPatasalaGallery2Image] = useState('');
+const [patasalaGallery2Text, setPatasalaGallery2Text] = useState('');
+
+const [patasalaGallery3Image, setPatasalaGallery3Image] = useState('');
+const [patasalaGallery3Text, setPatasalaGallery3Text] = useState('');
+
+const [patasalaGallery4Image, setPatasalaGallery4Image] = useState('');
+const [patasalaGallery4Text, setPatasalaGallery4Text] = useState('');
+
+//Gallery Section 
+
+const [Gallery1Image, setGallery1Image] = useState('');
+const [Gallery1Text, setGallery1Text] = useState('');
+
+const [Gallery2Image, setGallery2Image] = useState('');
+const [Gallery2Text, setGallery2Text] = useState('');
+
+const [Gallery3Image, setGallery3Image] = useState('');
+const [Gallery3Text, setGallery3Text] = useState('');
+
+const [Gallery4Image, setGallery4Image] = useState('');
+const [Gallery4Text, setGallery4Text] = useState('');
+
+const [Gallery5Image, setGallery5Image] = useState('');
+const [Gallery5Text, setGallery5Text] = useState('');
+
+const [Gallery6Image, setGallery6Image] = useState('');
+const [Gallery6Text, setGallery6Text] = useState('');
+
+const [Gallery7Image, setGallery7Image] = useState('');
+const [Gallery7Text, setGallery7Text] = useState('');
+
+const [Gallery8Image, setGallery8Image] = useState('');
+const [Gallery8Text, setGallery8Text] = useState('');
+
+
+
+
+   // Fetch Highlight Section data from the API
+   useEffect(() => {
+    const fetchHighlightSection = async () => {
       try {
-        const response = await axios.get(`${serverUrl}/content`);  // Fetch the data
-        setImageSrc(response.data.imageUrl);  // Set the image URL
-        setContent(response.data.textContent);  // Set the text content
+        const response = await axios.get('https://andaal.in/gbm/api/articles/highlight_section');
+        setHighlightSectionImage(response.data.preview_image);
+        setHighlightSectionTitle(response.data.heading);
+        setHighlightSectionContent(response.data.preview_text || response.data.article_text);
       } catch (error) {
-        console.error('Error fetching content:', error);
+        console.error('Error fetching highlight section:', error);
       }
     };
-    fetchContent();
+
+    const fetchNewsSection = async () => {
+      try {
+        // Fetch for news1
+        const news1Response = await axios.get('https://andaal.in/gbm/api/articles/news1');
+        console.log(news1Response)
+        setNews1Image(news1Response.data.preview_image);
+        setNews1Title(news1Response.data.heading);
+        setNews1Content(news1Response.data.preview_text);
+
+        // Fetch for news2
+        const news2Response = await axios.get('https://andaal.in/gbm/api/articles/news2');
+        setNews2Image(news2Response.data.preview_image);
+        setNews2Title(news2Response.data.heading);
+        setNews2Content(news2Response.data.preview_text || news2Response.data.article_text);
+
+        // Fetch for news3
+        const news3Response = await axios.get('https://andaal.in/gbm/api/articles/news3');
+        setNews3Image(news3Response.data.preview_image);
+        setNews3Title(news3Response.data.heading);
+        setNews3Content(news3Response.data.preview_text || news3Response.data.article_text);
+      } catch (error) {
+        console.error('Error fetching news section:', error);
+      }
+    };
+
+    const fetchAnnouncementSection = async () => {
+      try {
+        // Fetch for announcement1
+        const announcement1Response = await axios.get('https://andaal.in/gbm/api/articles/announcement1');
+        setAnnouncement1Image(announcement1Response.data.preview_image);
+        setAnnouncement1Text(announcement1Response.data.preview_text);
+  
+        // Fetch for announcement2
+        const announcement2Response = await axios.get('https://andaal.in/gbm/api/articles/announcement2');
+        setAnnouncement2Image(announcement2Response.data.preview_image);
+        setAnnouncement2Text(announcement2Response.data.preview_text);
+  
+        // Fetch for announcement3
+        const announcement3Response = await axios.get('https://andaal.in/gbm/api/articles/announcement3');
+        setAnnouncement3Image(announcement3Response.data.preview_image);
+        setAnnouncement3Text(announcement3Response.data.preview_text);
+  
+        // Fetch for announcement4
+        const announcement4Response = await axios.get('https://andaal.in/gbm/api/articles/announcement4');
+        setAnnouncement4Image(announcement4Response.data.preview_image);
+        setAnnouncement4Text(announcement4Response.data.preview_text);
+      } catch (error) {
+        console.error('Error fetching announcements:', error);
+      }
+    };
+
+    const fetchMuttSection = async () => {
+      try {
+        const response = await axios.get('https://andaal.in/gbm/api/articles/news4');
+        setMuttImageUrl(response.data.preview_image);
+        setMuttTitle(response.data.heading);
+        setMuttDescription(response.data.preview_text);
+      } catch (error) {
+        console.error('Error fetching Mutt section:', error);
+      }
+    };
+    
+    const fetchYearContent = async () => {
+      try{
+        const response = await axios.get('https://andaal.in/gbm/api/articles/year')
+        const response2023 = await axios.get('https://andaal.in/gbm/api/articles/2023')
+        const response2022 = await axios.get('https://andaal.in/gbm/api/articles/2022')
+        setYearImage(response.data.preview_image);
+        setYearText(response.data.preview_text);
+        setYear1Image(response2023.data.preview_image);
+        setYear1Text(response2023.data.preview_text);
+        setYear2Image(response2022.data.preview_image);
+        setYear2Text(response2022.data.preview_text);
+      }
+      catch (error) {
+        console.error('Error fetching year section:', error);
+      }
+    };
+
+    const fetchJeeyarArticles = async () => {
+      try{
+      const response = await axios.get('https://andaal.in/gbm/api/articles/Jeeyar article 1')
+      const response1 = await axios.get('https://andaal.in/gbm/api/articles/Jeeyar article 2')
+      const response2 = await axios.get('https://andaal.in/gbm/api/articles/Jeeyar article 3')
+      const response3 = await axios.get('https://andaal.in/gbm/api/articles/Jeeyar article 4')
+
+      setContent1Image(response.data.preview_image);
+      setContent1Text(response.data.preview_text);
+      setContent1Heading(response.data.heading)
+
+      setContent2Image(response1.data.preview_image);
+      setContent2Text(response1.data.preview_text);
+      setContent2Heading(response1.data.heading)
+
+      setContent3Image(response2.data.preview_image);
+      setContent3Text(response2.data.preview_text);
+      setContent3Heading(response2.data.heading)
+
+      setContent4Image(response3.data.preview_image);
+      setContent4Text(response3.data.preview_text);
+      setContent4Heading(response3.data.heading)
+    }
+    catch (error) {
+      console.error('Error fetching article section:', error);
+    }
+  }
+
+  const fetchEvents = async () => {
+    try{
+    const response = await axios.get('https://andaal.in/gbm/api/articles/Event 1')
+    const response2 = await axios.get('https://andaal.in/gbm/api/articles/Event 2')
+    const response3 = await axios.get('https://andaal.in/gbm/api/articles/Event 3')
+    const response4 = await axios.get('https://andaal.in/gbm/api/articles/Event 4')
+
+    setEvent1Image(response.data.preview_image)
+    setEvent1Text(response.data.preview_text)
+    
+    setEvent2Image(response2.data.preview_image)
+    setEvent2Text(response2.data.preview_text)
+
+    setEvent3Image(response3.data.preview_image)
+    setEvent3Text(response3.data.preview_text)
+
+    setEvent4Image(response4.data.preview_image)
+    setEvent4Text(response4.data.preview_text)
+  }
+  catch (error) {
+    console.error('Error fetching Event section:', error);
+  }
+}
+
+
+const fetchTemples = async () => {
+  try{
+    const response = await axios.get('https://andaal.in/gbm/api/articles/Temple article 1')
+    const response2 = await axios.get('https://andaal.in/gbm/api/articles/Temple article 2')
+    const response3 = await axios.get('https://andaal.in/gbm/api/articles/Temple article 3')
+    const response4 = await axios.get('https://andaal.in/gbm/api/articles/Temple article 4')
+    const response5 = await axios.get('https://andaal.in/gbm/api/articles/Temple article 5')
+    const response6 = await axios.get('https://andaal.in/gbm/api/articles/Temple article 6')
+
+    setTempleImage1(response.data.preview_image)
+    setTempleImage2(response2.data.preview_image)
+    setTempleImage3(response3.data.preview_image)
+    setTempleImage4(response4.data.preview_image)
+    setTempleImage5(response5.data.preview_image)
+    setTempleImage6(response6.data.preview_image)
+
+    setTempleText1(response.data.preview_text)
+    setTempleText2(response2.data.preview_text)
+    setTempleText3(response3.data.preview_text)
+    setTempleText4(response4.data.preview_text)
+    setTempleText5(response5.data.preview_text)
+    setTempleText6(response6.data.preview_text)
+
+  }
+  catch (error) {
+    console.error('Error fetching Event section:', error);
+  }
+}
+
+const fetchpatasalacontent =async () => {
+  try{
+    const response = await axios.get('https://andaal.in/gbm/api/articles/Course')
+    const response2 = await axios.get('https://andaal.in/gbm/api/articles/Admission')
+    const response3 = await axios.get('https://andaal.in/gbm/api/articles/Events')
+
+    setCourseImage(response.data.preview_image)
+    setCourseText(response.data.preview_text)
+
+    setAdmissionImage(response2.data.preview_image)
+    setAdmissionText(response2.data.preview_text)
+
+    setEventsImage(response3.data.preview_image)
+    setEventsText(response3.data.preview_text)
+
+  }
+  catch (error) {
+    console.error('Error fetching Patasalacontent section:', error);
+  }
+}
+
+const fetchpatasalaGallery =async () => {
+  try{
+    const response1 = await axios.get('https://andaal.in/gbm/api/articles/Patasala Gallery1')
+    const response2 = await axios.get('https://andaal.in/gbm/api/articles/Patasala Gallery2')
+    const response3 = await axios.get('https://andaal.in/gbm/api/articles/Patasala Gallery3')
+    const response4 = await axios.get('https://andaal.in/gbm/api/articles/Patasala Gallery4')
+
+    setPatasalaGallery1Image(response1.data.preview_image)
+    setPatasalaGallery2Image(response2.data.preview_image)
+    setPatasalaGallery3Image(response3.data.preview_image)
+    setPatasalaGallery4Image(response4.data.preview_image)
+
+    setPatasalaGallery1Text(response1.data.preview_text)
+    setPatasalaGallery2Text(response2.data.preview_text)
+    setPatasalaGallery3Text(response3.data.preview_text)
+    setPatasalaGallery4Text(response4.data.preview_text)
+
+
+  }
+  catch (error) {
+    console.error('Error fetching patasalaGallery section:', error);
+  }
+}
+
+const fetchGallery = async () => {
+  try {
+    const response1 = await axios.get('https://andaal.in/gbm/api/articles/Gallery1')
+    const response2 = await axios.get('https://andaal.in/gbm/api/articles/Gallery2')
+    const response3 = await axios.get('https://andaal.in/gbm/api/articles/Gallery3')
+    const response4 = await axios.get('https://andaal.in/gbm/api/articles/Gallery4')
+    const response5 = await axios.get('https://andaal.in/gbm/api/articles/Gallery5')
+    const response6 = await axios.get('https://andaal.in/gbm/api/articles/Gallery6')
+    const response7 = await axios.get('https://andaal.in/gbm/api/articles/Gallery7')
+    const response8 = await axios.get('https://andaal.in/gbm/api/articles/Gallery8')
+
+    setGallery1Image(response1.data.preview_image)
+    setGallery1Text(response1.data.preview_text)
+
+    setGallery2Image(response2.data.preview_image)
+    setGallery2Text(response2.data.preview_text)
+
+    setGallery3Image(response3.data.preview_image)
+    setGallery3Text(response3.data.preview_text)
+
+    setGallery4Image(response4.data.preview_image)
+    setGallery4Text(response4.data.preview_text)
+
+    setGallery5Image(response5.data.preview_image)
+    setGallery5Text(response5.data.preview_text)
+
+    setGallery6Image(response6.data.preview_image)
+    setGallery6Text(response6.data.preview_text)
+
+    setGallery7Image(response7.data.preview_image)
+    setGallery7Text(response7.data.preview_text)
+
+    setGallery8Image(response8.data.preview_image)
+    setGallery8Text(response8.data.preview_text)
+  }
+  catch (error) {
+    console.error('Error fetching patasalaGallery section:', error);
+  }
+}
+    fetchYearContent();
+    fetchHighlightSection();
+    fetchNewsSection();
+    fetchAnnouncementSection();
+    fetchMuttSection();
+    fetchJeeyarArticles ();
+    fetchEvents();
+    fetchTemples();
+    fetchpatasalacontent();
+    fetchpatasalaGallery ();
+    fetchGallery();
   }, []);
   
   
@@ -252,237 +492,6 @@ const [event4Paragraph, setEvent4Paragraph] = useState(
       setImageSrc(URL.createObjectURL(file));  // Update image source for preview
     }
   };
-  
-  
-
-  const handleSave = async () => {
-    const formData = new FormData();
-    const fileInput = document.querySelector('input[type="file"]');
-    
-    if (fileInput.files.length > 0) {
-      formData.append('image', fileInput.files[0]);
-    }
-  
-    formData.append('textContent', content);
-  
-    try {
-      const response = await axios.post(`${serverUrl}/admin/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-  
-      setImageSrc(response.data.data.imageUrl);
-      setContent(response.data.data.textContent);
-  
-    } catch (error) {
-      console.error('Error saving content:', error);
-    }
-  };
-  
-  
-
-useEffect(() => {
-  const fetchNewsContent = async () => {
-    try {
-      const response = await axios.get(`${serverUrl}/news-content`);
-      if (response.data) {
-        setNews1Text(response.data.news1Text || 'Default text for news1');
-        setNews2Text(response.data.news2Text || 'Default text for news2');
-        setNews3Text(response.data.news3Text || 'Default text for news3');
-        setNews4Text(response.data.news4Text || 'Default text for news4');
-
-        setNews1Image(response.data.news1Image ? `${serverUrl}${response.data.news1Image}` : news1ImageDefault);
-        setNews2Image(response.data.news2Image ? `${serverUrl}${response.data.news2Image}` : news1ImageDefault);
-        setNews3Image(response.data.news3Image ? `${serverUrl}${response.data.news3Image}` : news1ImageDefault);
-        setNews4Image(response.data.news4Image ? `${serverUrl}${response.data.news4Image}` : news1ImageDefault);
-
-        }
-    } catch (error) {
-      console.error('Error fetching news content:', error);
-    }
-  };
-  fetchNewsContent();
-}, []);
-
-// Handle image change for news items
-const handleNewsImageChange = (event, setImage) => {
-  const file = event.target.files[0];
-  if (file) {
-    const previewUrl = URL.createObjectURL(file);
-    setImage(previewUrl);
-  }
-};
-
-// Handle save for each news item
-const handleSaveNews = async (newsItem, text, imageFile, setImage) => {
-  const formData = new FormData();
-  const fileInput = document.querySelector(`input[data-news="${newsItem}"]`);
-
-  // Make sure the file is selected
-  if (!fileInput || !fileInput.files || !fileInput.files[0]) {
-    alert('Please select a file before saving.');
-    return;
-  }
-
-  formData.append('image', fileInput.files[0]);  // File input
-  formData.append('text', text);  // Text for the news item
-  formData.append('newsItem', newsItem);  // Identifies which news item (news1, news2, etc.)
-
-  try {
-    const response = await axios.post(`${serverUrl}/admin/upload-news`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    // Update the image state with the new URL
-    const imageUrl = `${serverUrl}${response.data[`${newsItem}Image`]}`;
-    setImage(imageUrl);  // Call the passed setImage function to update the state
-  } catch (error) {
-    console.error('Error saving news content:', error);
-    alert('Error saving the news content. Please try again.');
-  }
-};
-
-useEffect(() => {
-  const fetchAnnouncements = async () => {
-    try {
-      console.log('asfasf')
-      const response = await axios.get(`${serverUrl}/announcement-content`);
-      if (response.data) {
-        setAnnouncement1Text(response.data.announcement1Text || 'Default text for announcement1');
-        setAnnouncement2Text(response.data.announcement2Text || 'Default text for announcement2');
-        setAnnouncement3Text(response.data.announcement3Text || 'Default text for announcement3');
-        setAnnouncement4Text(response.data.announcement4Text || 'Default text for announcement4');
-
-        setAnnouncement1Image(response.data.announcement1Image ? `${serverUrl}${response.data.announcement1Image}` : announcement1ImageDefault);
-        setAnnouncement2Image(response.data.announcement2Image ? `${serverUrl}${response.data.announcement2Image}` : announcement2ImageDefault);
-        setAnnouncement3Image(response.data.announcement3Image ? `${serverUrl}${response.data.announcement3Image}` : announcement3ImageDefault);
-        setAnnouncement4Image(response.data.announcement4Image ? `${serverUrl}${response.data.announcement4Image}` : announcement4ImageDefault);
-      }
-    } catch (error) {
-      console.error('Error fetching announcements:', error);
-    }
-  };
-  fetchAnnouncements();
-}, []);
-
-
-const handleAnnouncementImageChange = (event, setImage) => {
-  const file = event.target.files[0];
-  if (file) {
-    const previewUrl = URL.createObjectURL(file);
-    setImage(previewUrl); // Show the preview
-  }
-};
-
-
-const handleSaveAnnouncement = async () => {
-  const formData = new FormData();
-  
-  // For announcement1
-  const fileInput1 = document.querySelector(`input[name="announcement1Image"]`);
-  if (fileInput1 && fileInput1.files[0]) {
-    formData.append('announcement1Image', fileInput1.files[0]);
-  }
-
-  // For announcement2
-  const fileInput2 = document.querySelector(`input[name="announcement2Image"]`);
-  if (fileInput2 && fileInput2.files[0]) {
-    formData.append('announcement2Image', fileInput2.files[0]);
-  }
-
-  // For announcement3
-  const fileInput3 = document.querySelector(`input[name="announcement3Image"]`);
-  if (fileInput3 && fileInput3.files[0]) {
-    formData.append('announcement3Image', fileInput3.files[0]);
-  }
-
-  // For announcement4
-  const fileInput4 = document.querySelector(`input[name="announcement4Image"]`);
-  if (fileInput4 && fileInput4.files[0]) {
-    formData.append('announcement4Image', fileInput4.files[0]);
-  }
-
-  // Append text for all announcements
-  formData.append('announcement1Text', announcement1Text);
-  formData.append('announcement2Text', announcement2Text);
-  formData.append('announcement3Text', announcement3Text);
-  formData.append('announcement4Text', announcement4Text);
-
-  try {
-    const response = await axios.post(`${serverUrl}/admin/upload-announcement`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    alert('Announcements updated successfully.');
-  } catch (error) {
-    console.error('Error saving announcements:', error);
-  }
-};
-
-useEffect(() => {
-  const fetchYearContent = async () => {
-    try {
-      const response = await axios.get(`${serverUrl}/year-content`);
-      if (response.data) {
-        // Set the fetched data in the state
-        setYearText(response.data.yearText || 'Default text for year');
-        setYear1Text(response.data.year1Text || 'Default text for year1');
-        setYear2Text(response.data.year2Text || 'Default text for year2');
-
-        // Set the images if they exist, otherwise use the default images
-        setYearImage(response.data.yearImage ? `${serverUrl}${response.data.yearImage}` : yearImageDefault);
-        setYear1Image(response.data.year1Image ? `${serverUrl}${response.data.year1Image}` : year1ImageDefault);
-        setYear2Image(response.data.year2Image ? `${serverUrl}${response.data.year2Image}` : year2ImageDefault);
-      }
-    } catch (error) {
-      console.error('Error fetching year content:', error);
-    }
-  };
-
-  fetchYearContent();
-}, []);  // Empty dependency array ensures it runs only once, on component mount
-
-const handleYearImageChange = (event, setImage) => {
-  const file = event.target.files[0];
-  if (file) {
-    const previewUrl = URL.createObjectURL(file);
-    setImage(previewUrl); // Show the preview
-  }
-};
-
-const handleSaveYear = async () => {
-  const formData = new FormData();
-
-  // Handle year section
-  const yearFileInput = document.querySelector('input[name="yearImage"]');
-  if (yearFileInput && yearFileInput.files[0]) {
-    formData.append('yearImage', yearFileInput.files[0]);
-  }
-  formData.append('yearText', yearText);
-
-  // Handle year1 section
-  const year1FileInput = document.querySelector('input[name="year1Image"]');
-  if (year1FileInput && year1FileInput.files[0]) {
-    formData.append('year1Image', year1FileInput.files[0]);
-  }
-  formData.append('year1Text', year1Text);
-
-  // Handle year2 section
-  const year2FileInput = document.querySelector('input[name="year2Image"]');
-  if (year2FileInput && year2FileInput.files[0]) {
-    formData.append('year2Image', year2FileInput.files[0]);
-  }
-  formData.append('year2Text', year2Text);
-
-  try {
-    await axios.post(`${serverUrl}/admin/upload-year`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    alert('Year sections updated successfully.');
-  } catch (error) {
-    console.error('Error saving year sections:', error);
-  }
-};
 
 return (
   <Router>
@@ -495,27 +504,35 @@ return (
             imageSrc={imageSrc}
             handleImageChange={handleImageChange}
             content={content} 
-            setContent={setContent} 
-            handleSave={handleSave} 
+            setContent={setContent}  
             originalContent={originalContent}
+            highlightSectionImage={highlightSectionImage}
+            highlightSectionTitle={highlightSectionTitle}
+            highlightSectionContent={highlightSectionContent}
             news1Text={news1Text}
             news2Text={news2Text}
             news3Text={news3Text}
-            news4Text={news4Text}
+
+            news1Title={news1Title}
+            news2Title = {news2Title}
+            news3Title = {news3Title}
+
+            news1Content={news1Content}
+            news2Content={news2Content}
+            news3Content={news3Content}
+            
             news1Image={news1Image}
             news2Image={news2Image}
             news3Image={news3Image}
-            news4Image={news4Image}
+            
             setNews1Text={setNews1Text}
             setNews2Text={setNews2Text}
             setNews3Text={setNews3Text}
-            setNews4Text={setNews4Text}
+           
             setNews1Image={setNews1Image}
             setNews2Image={setNews2Image}
             setNews3Image={setNews3Image}
-            setNews4Image={setNews4Image}
-            handleSaveNews={handleSaveNews}
-            handleNewsImageChange={handleNewsImageChange}
+            
             announcement4Text={announcement4Text}
             announcement3Text={announcement3Text}
             announcement2Text={announcement2Text}
@@ -524,7 +541,6 @@ return (
             setAnnouncement3Image={setAnnouncement3Image}
             setAnnouncement2Image={setAnnouncement2Image}
             setAnnouncement1Image={setAnnouncement1Image}
-            handleAnnouncementImageChange={handleAnnouncementImageChange}
             setAnnouncement4Text={setAnnouncement4Text}
             setAnnouncement3Text={setAnnouncement3Text}
             setAnnouncement2Text={setAnnouncement2Text}
@@ -533,7 +549,6 @@ return (
             announcement3ImageDefault={announcement3ImageDefault}
             announcement2ImageDefault={announcement2ImageDefault}
             announcement1ImageDefault={announcement1ImageDefault}
-            handleSaveAnnouncement={handleSaveAnnouncement}
           announcement1Image={announcement1Image}
           announcement2Image={announcement2Image}
           announcement3Image={announcement3Image}
@@ -541,33 +556,86 @@ return (
           yearText={yearText}
           year1Text={year1Text}
           year2Text={year2Text}
-          handleSaveYear={handleSaveYear}
           setYearText={setYearText}
           setYear1Text={setYear1Text}
           setYear2Text={setYear2Text}
           setYearImage={setYearImage}
           setYear1Image={setYear1Image}
           setYear2Image={setYear2Image}
-          handleYearImageChange={handleYearImageChange}
           yearImage={yearImage}
           year1Image={year1Image}
           year2Image={year2Image}
-          imageUrl1={imageUrl1}
-          imageUrl2={imageUrl2}
-          imageUrl3={imageUrl3}
-          imageUrl4={imageUrl4}
-          content1={content1}
-          content2={content2}
-          content3={content3}
-          content4={content4}
-          event1Paragraph={event1Paragraph}
-          event2Paragraph={event2Paragraph}
-          event3Paragraph={event3Paragraph}
-          event4Paragraph={event4Paragraph}
           EventImage={EventImage}
           EventImage2={EventImage2}
           EventImage3={EventImage3}
           EventImage4={EventImage4}
+          muttDescription={muttDescription}
+          muttImageUrl={muttImageUrl}
+          muttTitle={muttTitle}
+          content1Image={content1Image}
+          content2Image={content2Image}
+          content3Image={content3Image}
+          content4Image={content4Image}
+          content1Text={content1Text}
+          content2Text={content2Text}
+          content3Text={content3Text}
+          content4Text={content4Text}
+          content1Heading={content1Heading}
+          content2Heading={content2Heading}
+          content3Heading={content3Heading}
+          content4Heading={content4Heading}
+          event1Image={event1Image}
+          event2Image={event2Image}
+          event3Image={event3Image}
+          event4Image={event4Image}
+          event1Text={event1Text}
+          event2Text={event2Text}
+          event3Text={event3Text}
+          event4Text={event4Text}
+          templeImage1={templeImage1}
+          templeImage2={templeImage2}
+          templeImage3={templeImage3}
+          templeImage4={templeImage4}
+          templeImage5={templeImage5}
+          templeImage6={templeImage6}
+          templeText1={templeText1}
+          templeText2={templeText2}
+          templeText3={templeText3}
+          templeText4={templeText4}
+          templeText5={templeText5}
+          templeText6={templeText6}
+          courseImage={courseImage}
+          courseText={courseText}
+          admissionImage={admissionImage}
+          admissionText={admissionText}
+          eventsImage={eventsImage}
+          eventsText={eventsText}
+          patasalaGallery1Text={patasalaGallery1Text}
+          patasalaGallery2Text={patasalaGallery2Text}
+          patasalaGallery3Text={patasalaGallery3Text}
+          patasalaGallery4Text={patasalaGallery4Text}
+          patasalaGallery1Image={patasalaGallery1Image}
+          patasalaGallery2Image={patasalaGallery2Image}
+          patasalaGallery3Image={patasalaGallery3Image}
+          patasalaGallery4Image={patasalaGallery4Image}
+          Gallery1Image={Gallery1Image}
+          Gallery1Text={Gallery1Text}
+          Gallery2Image={Gallery2Image}
+          Gallery2Text={Gallery2Text}
+          Gallery3Image={Gallery3Image}
+          Gallery3Text={Gallery3Text}
+          Gallery4Image={Gallery4Image}
+          Gallery4Text={Gallery4Text}
+          Gallery5Image={Gallery5Image}
+          Gallery5Text={Gallery5Text}
+          Gallery6Image={Gallery6Image}
+          Gallery6Text={Gallery6Text}
+          Gallery7Image={Gallery7Image}
+          Gallery7Text={Gallery7Text}
+          Gallery8Image={Gallery8Image}
+          Gallery8Text={Gallery8Text}
+       
+          
 
 
           />
@@ -577,46 +645,94 @@ return (
   path="/admin"
   element={
     <AdminPage
-    highlightSectionContent={highlightSectionContent} // Passing dynamic header and paragraph content
-    highlightSectionImage={highlightSectionImage} // Passing image
+    // highlightSectionContent={highlightSectionContent} // Passing dynamic header and paragraph content
+    // highlightSectionImage={highlightSectionImage} // Passing image
      news1Content={news1Content}
+     news1Title = {news1Title}
       news1Image={news1Image}
       news2Content={news2Content}
       news2Image={news2Image}
       news3Content={news3Content}
       news3Image={news3Image}
-      news4Content={news4Content}
-      news4Image={news4Image}
-      announcement1Content={announcement1Content}
+      news2Title = {news2Title}
+      news3Title = {news3Title}
       announcement1Image={announcement1Image}
-      announcement2Content={announcement2Content}
       announcement2Image={announcement2Image}
-      announcement3Content={announcement3Content}
       announcement3Image={announcement3Image}
-      announcement4Content={announcement4Content}
       announcement4Image={announcement4Image}
-      yearContent={yearContent}
-      year1Content={year1Content}
-      year2Content={year2Content}
       yearImage={yearImage}
       year1Image={year1Image}
       year2Image={year2Image}
-      imageUrl1={imageUrl1}
-      imageUrl2={imageUrl2}
-      imageUrl3={imageUrl3}
-      imageUrl4={imageUrl4}
-      content1={content1}
-      content2={content2}
-      content3={content3}
-      content4={content4}
-      event1Paragraph={event1Paragraph}
-      event2Paragraph={event2Paragraph}
-      event3Paragraph={event3Paragraph}
-      event4Paragraph={event4Paragraph}
       EventImage={EventImage}
       EventImage2={EventImage2}
       EventImage3={EventImage3}
       EventImage4={EventImage4}
+      muttDescription={muttDescription}
+      muttImageUrl={muttImageUrl}
+      muttTitle={muttTitle}
+      content1Image={content1Image}
+      content2Image={content2Image}
+      content3Image={content3Image}
+      content4Image={content4Image}
+      content1Text={content1Text}
+      content2Text={content2Text}
+      content3Text={content3Text}
+      content4Text={content4Text}
+      content1Heading={content1Heading}
+      content2Heading={content2Heading}
+      content3Heading={content3Heading}
+      content4Heading={content4Heading}
+      event1Image={event1Image}
+      event2Image={event2Image}
+      event3Image={event3Image}
+      event4Image={event4Image}
+      event1Text={event1Text}
+      event2Text={event2Text}
+      event3Text={event3Text}
+      event4Text={event4Text}
+      templeImage1={templeImage1}
+      templeImage2={templeImage2}
+      templeImage3={templeImage3}
+      templeImage4={templeImage4}
+      templeImage5={templeImage5}
+      templeImage6={templeImage6}
+      templeText1={templeText1}
+      templeText2={templeText2}
+      templeText3={templeText3}
+      templeText4={templeText4}
+      templeText5={templeText5}
+      templeText6={templeText6}
+      courseImage={courseImage}
+      courseText={courseText}
+      admissionImage={admissionImage}
+      admissionText={admissionText}
+      eventsImage={eventsImage}
+      eventsText={eventsText}
+      patasalaGallery1Text={patasalaGallery1Text}
+      patasalaGallery2Text={patasalaGallery2Text}
+      patasalaGallery3Text={patasalaGallery3Text}
+      patasalaGallery4Text={patasalaGallery4Text}
+      patasalaGallery1Image={patasalaGallery1Image}
+      patasalaGallery2Image={patasalaGallery2Image}
+      patasalaGallery3Image={patasalaGallery3Image}
+      patasalaGallery4Image={patasalaGallery4Image}
+      Gallery1Image={Gallery1Image}
+      Gallery1Text={Gallery1Text}
+      Gallery2Image={Gallery2Image}
+      Gallery2Text={Gallery2Text}
+      Gallery3Image={Gallery3Image}
+      Gallery3Text={Gallery3Text}
+      Gallery4Image={Gallery4Image}
+      Gallery4Text={Gallery4Text}
+      Gallery5Image={Gallery5Image}
+      Gallery5Text={Gallery5Text}
+      Gallery6Image={Gallery6Image}
+      Gallery6Text={Gallery6Text}
+      Gallery7Image={Gallery7Image}
+      Gallery7Text={Gallery7Text}
+      Gallery8Image={Gallery8Image}
+      Gallery8Text={Gallery8Text}
+   
 
     />
   }
@@ -625,8 +741,7 @@ return (
           <HeaderNavbar /> {/* Insert header and navbar */}
           <HomePage /> {/* Your existing content */}
         </>} />
-<Route path="/article" element={<ArticlePage />} />
-
+        <Route path="/article/:id" element={<ArticlePage />} />
   </Routes>
   </Router>
 );
@@ -636,11 +751,18 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   news1Image,yearContent,year1Content,year2Content,content1,content2,content3,content4,event1Paragraph,event2Paragraph,event3Paragraph,event4Paragraph,
   news2Image,EventImage,EventImage2,EventImage3,EventImage4,
   news3Image,
-  imageUrl1,
-  imageUrl2,
-  imageUrl3,
-  imageUrl4,
-  
+  highlightSectionImage, 
+  highlightSectionTitle, 
+  highlightSectionContent,news1Title,news2Title,news3Title,news1Content,news2Content,news3Content,muttDescription,muttImageUrl,muttTitle,
+  content1Image,content1Heading,content1Text,content2Image,content3Image,content4Image,content2Heading,content3Heading,content4Heading,content2Text,content3Text,content4Text,
+  event1Image,event2Image,event3Image,event4Image,event1Text,event2Text,event3Text,event4Text,
+  templeImage1,templeImage2,templeImage3,templeImage4,templeImage5,templeImage6,
+  templeText1,templeText2,templeText3,templeText4,templeText5,templeText6,
+  courseImage,courseText,admissionImage,admissionText,eventsImage,eventsText,
+  patasalaGallery1Image,patasalaGallery2Image,patasalaGallery3Image,patasalaGallery4Image,
+  patasalaGallery1Text,patasalaGallery2Text,patasalaGallery3Text,patasalaGallery4Text,
+  Gallery1Image,Gallery1Text,Gallery2Image,Gallery2Text,Gallery3Image,Gallery3Text,Gallery4Image, Gallery4Text,Gallery5Image,Gallery5Text,
+  Gallery6Image,Gallery6Text,Gallery7Image,Gallery7Text,Gallery8Image,Gallery8Text,
 
  handleAnnouncementImageChange,announcement1Image,announcement2Image,announcement3Image,announcement4Image,
   handleSaveAnnouncement,setAnnouncement1Text,setAnnouncement2Text,setAnnouncement3Text,setAnnouncement4Text,
@@ -681,70 +803,70 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
   
       <main>
       <section id="home" className="top-section">
-      <div id="highlight-section" className="highlight-container" onClick={() => navigate('/article')}>
-  <img 
-    src={highlightSectionImage} 
-    alt="Highlight Section" 
-    style={{ width: '100%', height: 'auto', maxWidth: '500px', display: 'block', margin: '0 auto' }} 
-  />
-
-  <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
-  <a href="/article" className="highlight-link">
-    <h2>Our Sri Vanamamalai Mutt</h2>
-    </a>
+      <div className="container">
+      <div id="highlight-section" className="highlight-container" onClick={() => navigate('/article/highlight_section')}>
+      <img src={highlightSectionImage} alt="Highlight Section" style={{ width: '100%', height: 'auto', maxWidth: '500px', display: 'block', margin: '0 auto' }} />
+      <div className="highlight-content" style={{ textAlign: 'center', marginTop: '20px' }}>
+      {/* <a href="/article" className="highlight-link"> */}
+      <h2>{highlightSectionTitle || 'Default Title'}</h2>
+    {/* </a> */}
     <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-      {'One of the unique features here is that, mUlavar emperumAn is also known by the name of the dhivya dhEsam, i.e., vAnamAmalai and thOthAdhrinAthan.'}
+    {(highlightSectionContent ? 
+              highlightSectionContent.split(' ').slice(0, 40).join(' ') + '...' : 
+              'Default content text')}
     </p>
   </div>
 </div>
+    </div>
 
-
-  <div  className="news-section">
-  <div id="news1" className="news-item" onClick={() => navigate('/article')}>
+  <div id ="new1"  className="news-section">
+  <div id="news1" className="news-item" onClick={() => navigate('/article/news1')}>
   <img src={news1Image} alt="News1" className="news-image-left" />
   <div className="news-text-content">
-  <a href="/article" className="highlight-link">
-    <h2>Our Sri Vanamamalai Mutt</h2>
-    </a>
-    <p>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
+  <h2>{news1Title || 'Default Title'}</h2>
+  <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(news1Content ? 
+              news1Content.split(' ').slice(0, 20).join(' ') + '...' : 
+              'Default content text')}</p>
   </div>
 </div>
 
 
-  <div id="news2" className="news-item">
+  <div id="news2" className="news-item"onClick={() => navigate('/article/news2')}>
     <img src={news2Image} alt="News2" className="news-image-left" />
     <div className="news-text-content">
-    <a href="/article" className="highlight-link">
-      <h2>Our Sri Vanamamalai Mutt</h2>
-      </a>
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
+    <h2>{news2Title || 'Default Title'}</h2>
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(news2Content ? 
+              news2Content.split(' ').slice(0, 20).join(' ') + '...' : 
+              'Default content text')}</p>
     </div>
   </div>
 
-  <div id="news3" className="news-item">
+  <div id="news3" className="news-item"onClick={() => navigate('/article/news3')}>
     <img src={news3Image} alt="News3" className="news-image-left" />
     <div className="news-text-content">
-    <a href="/article" className="highlight-link">
-      <h2>Our Sri Vanamamalai Mutt</h2>
-      </a>
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p>
+    <h2>{news3Title || 'Default Title'}</h2>
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(news3Content ? 
+              news3Content.split(' ').slice(0, 20).join(' ') + '...' : 
+              'Default content text')}</p>
     </div>
   </div>
 </div>
 
 
- <section className='right-column'>
+ <section className='right-column'onClick={() => navigate('/article/news4')}>
   
-  <section className="image-container">
-  <h2>Our Sri Vanamamalai Mutt</h2> {/* Add a heading */}
+  <section id="news4" className="image-container">
+  <h2>{muttTitle}</h2> {/* Add a heading */}
 
     <img 
-      src={imageUrl} 
+      src={muttImageUrl}  
       alt="Description of the image" 
-      width="100%" 
+      width="80%" 
       height="160px" 
     /> {/* Add the image */}
-    <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>Our Sri Vanamamalai Mutt is one of the oldest mutts in Srivaishnava Sampradayam with rich culture and heritage.</p> {/* Add the image description */}
+    <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(muttDescription ? 
+              muttDescription.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p> {/* Add the image description */}
   </section>
 
   <section className='ann'>
@@ -755,58 +877,72 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
               {Array(1).fill().map((_, index) => (
               <>
       {/* Announcement 1 */}
-          <div id="announcement1" className="announcement1-item" key="announcement1">
+          <div id="announcement1" className="announcement1-item" key="announcement1"onClick={() => navigate('/article/announcement1')}>
             <img src={announcement1Image} alt="announcement1" />
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{announcement1Text}</p>
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(announcement1Text ? 
+              announcement1Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
           </div>
 
           {/* Announcement 2 */}
-          <div id="announcement2" className="announcement2-item" key="announcement2">
+          <div id="announcement2" className="announcement2-item" key="announcement2"onClick={() => navigate('/article/announcement2')}>
             <img src={announcement2Image} alt="announcement2" />
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{announcement2Text}</p>
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(announcement2Text ? 
+              announcement2Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
           </div>
 
           {/* Announcement 3 */}
-          <div id="announcement3" className="announcement3-item" key="announcement3">
+          <div id="announcement3" className="announcement3-item" key="announcement3"onClick={() => navigate('/article/announcement3')}>
             <img src={announcement3Image} alt="announcement3" />
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{announcement3Text}</p>
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(announcement3Text ? 
+              announcement3Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
           </div>
 
           {/* Announcement 4 */}
-          <div id="announcement4" className="announcement4-item" key="announcement4">
+          <div id="announcement4" className="announcement4-item" key="announcement4"onClick={() => navigate('/article/announcement4')}>
             <img src={announcement4Image} alt="announcement4" />
-            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{announcement4Text}</p>
+            <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(announcement4Text ? 
+              announcement4Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
           </div>
-
-      </>
+        </>
             ))}
     </div> 
     </div>
   </section>
-          </section>
+    </section>
         </section>
+
         <section id="jeeyar" className="bottom-section">
           <div className="jeeyars-travel">
             <h2>Jeeyar Travel</h2>
             <div className="itinerary-columns">
             {Array(1).fill().map((_, index) => (
   <>
-    <div id="year" className="year-section">
+    <div id="year" className="year-section"onClick={() => navigate('/article/year')}>
       <h3>Upcoming itinerary</h3>
       <img style={{ width: '100%' }} src={yearImage} alt="Year Image" />
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{yearContent}</p>
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(yearText ? 
+              yearText.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
     </div>
 
-    <div id="2023" className="year1-section">
+    <div id="2023" className="year1-section"onClick={() => navigate('/article/2023')}>
       <h3>2023</h3>
       <img style={{ width: '100%' }} src={year1Image} alt="Year1 Image" />
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{year1Content}</p>
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(year1Text ? 
+              year1Text.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
     </div>
 
-    <div id="2022" className="year2-section">
+    <div id="2022" className="year2-section"onClick={() => navigate('/article/2022')}>
       <h3>2022</h3>
       <img style={{ width: '100%' }} src={year2Image} alt="Year2 Image" />
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{year2Content}</p>
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(year2Text ? 
+              year2Text.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
     </div>
   </>
 ))}
@@ -814,66 +950,70 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
        </div>
        <div  className="videos">
   <div className="containers">
-    <section id="Jeeyar article 1" className="image-container">
+    <section id="Jeeyar article 1" className="image-container"onClick={() => navigate('/article/jeeyar article 1')}>
       <div className="content-wrapper">
         <img 
-          src={imageUrl1} 
+          src={content1Image} 
           alt="Sri Vanamamalai Mutt" 
           className="image-left" 
         />
         <div className="text-content">
-          <h2>{content1.header}</h2>
+          <h2>{content1Heading}</h2>
           <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-            {content1.paragraph}
-          </p>
+          {(content1Text ? 
+              content1Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
         </div>
       </div>
     </section>
 
-    <section id="Jeeyar article 2" className="image-container">
+    <section id="Jeeyar article 2" className="image-container"onClick={() => navigate('/article/jeeyar article 2')}>
       <div className="content-wrapper">
         <img 
-          src={imageUrl2} 
+          src={content2Image}  
           alt="Divya Desam Temples" 
           className="image-left" 
         />
         <div className="text-content">
-          <h2>{content2.header}</h2>
+          <h2>{content2Heading}</h2>
           <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-            {content2.paragraph}
-          </p>
+          {(content2Text ? 
+              content2Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
         </div>
       </div>
     </section>
 
-    <section id="Jeeyar article 3" className="image-container">
+    <section id="Jeeyar article 3" className="image-container"onClick={() => navigate('/article/jeeyar article 3')}>
       <div className="content-wrapper">
         <img 
-          src={imageUrl3} 
+          src={content3Image}  
           alt="Spiritual Leader" 
           className="image-left" 
         />
         <div className="text-content">
-          <h2>{content3.header}</h2>
+          <h2>{content3Heading}</h2>
           <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-            {content3.paragraph}
-          </p>
+          {(content3Text ? 
+              content3Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
         </div>
       </div>
     </section>
 
-    <section id="Jeeyar article 4" className="image-container">
+    <section id="Jeeyar article 4" className="image-container"onClick={() => navigate('/article/jeeyar article 4')}>
       <div className="content-wrapper">
         <img 
-          src={imageUrl4} 
+          src={content4Image}  
           alt="Rich History" 
           className="image-left" 
         />
         <div className="text-content">
-          <h2>{content4.header}</h2>
+          <h2>{content4Heading}</h2>
           <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-            {content4.paragraph}
-          </p>
+          {(content4Text ? 
+              content4Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
         </div>
       </div>
 
@@ -886,31 +1026,37 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
             <div className="scrollable">
             {Array(1).fill().map((_, index) => (
   <>
-    <div id="Event 1" className="event-item" key={`event1-${index}`}>
-      <img src={EventImage} alt="Event 1" />
+    <div id="Event 1" className="event-item" key={`event1-${index}`}onClick={() => navigate('/article/Event 1')}>
+      <img src={event1Image} alt="Event 1" />
       <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-        {event1Paragraph}
+      {(event1Text ? 
+              event1Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
+    </div>
+
+    <div id="Event 2" className="event-item2" key={`event2-${index}`}onClick={() => navigate('/article/Event 2')}>
+      <img src={event2Image} alt="Event 2" />
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+      {(event2Text ? 
+              event2Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
+    </div>
+
+    <div id="Event 3" className="event-item3" key={`event3-${index}`}onClick={() => navigate('/article/Event 3')}>
+      <img src={event3Image} alt="Event 3" />
+      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
+      {(event3Text ? 
+              event3Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}
       </p>
     </div>
 
-    <div id="Event 2" className="event-item2" key={`event2-${index}`}>
-      <img src={EventImage2} alt="Event 2" />
+    <div id="Event 4" className="event-item4" key={`event4-${index}`}onClick={() => navigate('/article/Event 4')}>
+      <img src={event4Image} alt="Event 4" />
       <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-        {event2Paragraph}
-      </p>
-    </div>
-
-    <div id="Event 3" className="event-item3" key={`event3-${index}`}>
-      <img src={EventImage3} alt="Event 3" />
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-        {event3Paragraph}
-      </p>
-    </div>
-
-    <div id="Event 4" className="event-item4" key={`event4-${index}`}>
-      <img src={EventImage4} alt="Event 4" />
-      <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>
-        {event4Paragraph}
+      {(event4Text ? 
+              event3Text.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}
       </p>
     </div>
   </>
@@ -927,29 +1073,41 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
           <div className="vanamamalai-temple-content">
             {Array(1).fill().map((_, index) => (
               <>
-              <div className="temple-item" key={index}>
-                <img src={templeImage} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>The Vanamamalai Perumal Temple, also known as Arulmigu Sree Vanamamalai Totatri Perumal Temple</p>
+              <div id="Temple article 1"  className="temple-item" key={index}onClick={() => navigate('/article/Temple article 1')}>
+                <img src={templeImage1} alt="Vanamamalai Temple" />
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText1 ? 
+              templeText1.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
-              <div className="temple-item2" key={index}>
+              <div id="Temple article 2" className="temple-item2" key={index}onClick={() => navigate('/article/Temple article 2')}>
                 <img src={templeImage2} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>The details about the presiding deity finds mention in Brahmananda Purana, Skanda Purana and Narasimha Purana.</p>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText2 ? 
+              templeText2.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
-              <div className="temple-item3" key={index}>
+              <div id="Temple article 3" className="temple-item3" key={index}onClick={() => navigate('/article/Temple article 3')}>
                 <img src={templeImage3} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>The temple has a large five-tiered gopuram and a large temple compound having two prakarams</p>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText3 ? 
+              templeText3.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
-              <div className="temple-item4" key={index}>
+              <div id="Temple article 4" className="temple-item4" key={index}onClick={() => navigate('/article/Temple article 4')}>
                 <img src={templeImage4} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>There are three precincts in the temple, with the shrine of Thayar located in the second precinct.</p>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText4 ? 
+              templeText4.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
-              <div className="temple-item5" key={index}>
+              <div id="Temple article 5" className="temple-item5" key={index}onClick={() => navigate('/article/Temple article 5')}>
                 <img src={templeImage5} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>The temple priests perform the pooja (rituals) during festivals and on a daily basis based on Vaiksana Agama. </p>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText5 ? 
+              templeText5.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
-              <div className="temple-item6" key={index}>
+              <div id="Temple article 6" className="temple-item6" key={index}onClick={() => navigate('/article/Temple article 6')}>
                 <img src={templeImage6} alt="Vanamamalai Temple" />
-                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>The temple is believed to have been built by the Pandyas, with later contributions from Vijayanagara kings and Madurai Nayaks</p>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', textAlign: 'justify' }}>{(templeText6 ? 
+              templeText6.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
               </div>
               </>
             ))}
@@ -971,6 +1129,8 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
           </div>
          </div>
         </section>
+
+
         <section id="patashala" className="patashala-section">
           <header className="header">
             <h1>Patashala</h1>
@@ -999,45 +1159,60 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
               </form>
             </section>
           </div>
+          
           <div className="content">
-            <section className="course">
+            <section id="Course" className="course"onClick={() => navigate('/article/Course')}>
               <h2>Course</h2>
               <img src={courseImage} alt="CourseImage" />
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+              <p>{(courseText ? 
+              courseText.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
             </section>
-            <section className="admission">
+            <section id="Admission" className="admission"onClick={() => navigate('/article/Admission')}>
               <h2>Admission</h2>
-              <img src={courseImage1} alt="AdmissionImage" />
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+              <img src={admissionImage} alt="AdmissionImage" />
+              <p>{(admissionText ? 
+              admissionText.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
             </section>
-            <section className="event">
+            <section id="Events" className="event"onClick={() => navigate('/article/Events')}>
               <h2>Events</h2>
-              <img src={courseImage2} alt="EventImage" />
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+              <img src={eventsImage} alt="EventImage" />
+              <p>{(eventsText ? 
+              eventsText.split(' ').slice(0, 10).join(' ') + '...' : 
+              'Default content text')}</p>
             </section>
           </div>
           <div className="patashalaevents-map">
                 <div className="gallery-column">
                   {Array(1).fill().map((_, index) => (
                     <>
-                    <div className="gallery-item1" key={index}>
-                      <img src={newsImage1} alt="Gallery Item1" />
-                      <p>Lorem ipsum dolor sit amet amet</p>
+                    <div id="Patasala Gallery1" className="gallery-item1" key={index}onClick={() => navigate('/article/Patasala Gallery1')}>
+                      <img src={patasalaGallery1Image} alt="Gallery Item1" />
+                     <p> {(patasalaGallery1Text ? 
+              patasalaGallery1Text.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
                       <a href="#">Learn more</a>
                     </div>
-                    <div className="gallery-item2" key={index}>
-                      <img src={newsImage2} alt="Gallery Item2" />
-                      <p>Lorem ipsum dolor sit amet amet</p>
+                    <div id="Patasala Gallery2" className="gallery-item2" key={index}onClick={() => navigate('/article/Patasala Gallery2')}>
+                      <img src={patasalaGallery2Image} alt="Gallery Item2" />
+                      <p>{(patasalaGallery2Text? 
+              patasalaGallery2Text.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
                       <a href="#">Learn more</a>
                     </div>
-                    <div className="gallery-item3" key={index}>
-                      <img src={newsImage3} alt="Gallery Item3" />
-                      <p>Lorem ipsum dolor sit amet amet</p>
+                    <div id="Patasala Gallery3" className="gallery-item3" key={index}onClick={() => navigate('/article/Patasala Gallery3')}>
+                      <img src={patasalaGallery3Image} alt="Gallery Item3" />
+                      <p>{(patasalaGallery3Text ? 
+              patasalaGallery3Text.split(' ').slice(0, 5).join(' ') + '...' : 
+              'Default content text')}</p>
                       <a href="#">Learn more</a>
                     </div>
-                    <div className="gallery-item4" key={index}>
-                      <img src={newsImage4} alt="Gallery Item4" />
-                      <p>Lorem ipsum dolor sit amet amet</p>
+                    <div id="Patasala Gallery4" className="gallery-item4" key={index}onClick={() => navigate('/article/Patasala Gallery4')}>
+                      <img src={patasalaGallery4Image} alt="Gallery Item4" />
+                      <p>{(patasalaGallery4Text ? 
+              patasalaGallery4Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                       <a href="#">Learn more</a>
                     </div>
                     </>
@@ -1052,44 +1227,60 @@ function HomePage({ isAdmin,year2Text,year1Text,yearText,handleSaveYear,setYear2
           <div className="gallery">
             {Array(1).fill().map((_, index) => (
               <>
-              <div className="gallery-photos1" key={index}>
-                <img src={galleryphoto1} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos1" key={index}onClick={() => navigate('/article/Gallery1')}>
+                <img src={Gallery1Image} alt="Gallery photo" />
+                <p>{(Gallery1Text ? 
+              Gallery1Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos2" key={index}>
-                <img src={galleryphoto2} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos2" key={index}onClick={() => navigate('/article/Gallery2')}>
+                <img src={Gallery2Image} alt="Gallery photo" />
+                <p>{(Gallery2Text ? 
+              Gallery2Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos3" key={index}>
-                <img src={galleryphoto3} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos3" key={index}onClick={() => navigate('/article/Gallery3')}>
+                <img src={Gallery3Image} alt="Gallery photo" />
+                <p>{(Gallery3Text ? 
+              Gallery3Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos4" key={index}>
-                <img src={galleryphoto4} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos4" key={index}onClick={() => navigate('/article/Gallery4')}>
+                <img src={Gallery4Image} alt="Gallery photo" />
+                <p>{(Gallery4Text ? 
+              Gallery4Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos5" key={index}>
-                <img src={galleryphoto5} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos5" key={index}onClick={() => navigate('/article/Gallery5')}>
+                <img src={Gallery5Image} alt="Gallery photo" />
+                <p>{(Gallery5Text ? 
+              Gallery5Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-                <div className="gallery-photos6" key={index}>
-                <img src={galleryphoto6} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+                <div className="gallery-photos6" key={index}onClick={() => navigate('/article/Gallery6')}>
+                <img src={Gallery6Image} alt="Gallery photo" />
+                <p>{(Gallery6Text ? 
+              Gallery6Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos7" key={index}>
-                <img src={galleryphoto7} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos7" key={index}onClick={() => navigate('/article/Gallery7')}>
+                <img src={Gallery7Image} alt="Gallery photo" />
+                <p>{(Gallery7Text ? 
+              Gallery7Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
-              <div className="gallery-photos8" key={index}>
-                <img src={galleryphoto8} alt="Gallery photo" />
-                <p>Lorem ipsum dolor sit amet amet</p>
+              <div className="gallery-photos8" key={index}onClick={() => navigate('/article/Gallery8')}>
+                <img src={Gallery8Image} alt="Gallery photo" />
+                <p>{(Gallery8Text ? 
+              Gallery8Text.split(' ').slice(0,5).join(' ') + '...' : 
+              'Default content text')}</p>
                 <a href="#">Learn more </a>
               </div>
               </>

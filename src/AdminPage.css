@@ -263,6 +263,23 @@
     font-size: 14px;
 
   }
+
+  .articlereplace-button {
+    background-color: #565656;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    margin-top: 185px;
+    margin-left:-275px;
+    font-size: 14px;
+
+  }
+
   
   .replace-button:hover {
     background-color: #868585; /* Darker blue on hover */
